@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "__BOT_DISTRIBUTION__"
+version = "1.0.0"
+description = "__BOT_DISPLAY_NAME__ managed Telegram bot"
+requires-python = ">=3.11,<3.12"
+dependencies = ["bot-center-runtime==1.0.0"]
+
+[project.scripts]
+__BOT_ID__ = "__BOT_PACKAGE__.managed:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

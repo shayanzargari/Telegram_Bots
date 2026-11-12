@@ -1,0 +1,3 @@
+# French
+
+Read root guidance. Preserve approved note filenames/bytes/order, accepted snapshots, ownership/invitations, preferences/positions, drafts, history and prepared audio keys/references. Notes are never rewritten merely for relocation. Read the preserved original French instructions for content editing; their old checks output and source path rules are superseded by canonical paths and work outputs. Reader lifecycle never owns the independent editor tree. Use guarded revision checks and respect concurrent edits. Audio publishes validated files atomically and drains workers before cancellation releases reservations.

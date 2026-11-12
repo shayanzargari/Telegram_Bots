@@ -1,0 +1,494 @@
+[
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\Adverbs.txt",
+    "sha256": "969fc673dec68a8ac35f8b8566668cc44cbc5d4a8ce73fc4b12608924249bb7d",
+    "bytes": 2188
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\COD-COI.txt",
+    "sha256": "befbece77489eb8514322e2d7e66b76dcc0bc1555f0ada94366f8d7374cac0f3",
+    "bytes": 1980
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\Directions.txt",
+    "sha256": "35fd785c25bcda3c1408225994ade6ead2c8bab8e4e55ec5a627e28475309fd8",
+    "bytes": 504
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\Expressions.txt",
+    "sha256": "d6c565b92d4316e0a6bc87d2ddd295f93577ebb0955a42700316e72da360f491",
+    "bytes": 3993
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\Faire.txt",
+    "sha256": "a3f74c83e3f7f1a83f46b73242618a0ab999bf60f0fdf7c162eece51e9b71b7a",
+    "bytes": 2497
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\Gérondif.txt",
+    "sha256": "f917e2b6826d758430b8c110f40dc11bb80576ad10d9cad12d1147d8a98c9560",
+    "bytes": 2871
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\Les connecteurs logiques.txt",
+    "sha256": "598ec176c35ae94720dcebb541cb74459d6989da824fc37efad6e364a5641245",
+    "bytes": 1896
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\Overall Examples.txt",
+    "sha256": "2aefd8b64ba19537d56859bec646d7cbf7c1f6728595d83a8b0bdf74c60f2e6e",
+    "bytes": 7794
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\passe compose.txt",
+    "sha256": "78c13031c84898aeb29130cbf286ecf7df7e49f1d001eae078c99752b60fe07b",
+    "bytes": 41
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\phrases impératives.txt",
+    "sha256": "f08e26dc561a45a85026bc6b6f0ef2ba687d55e3c42f5e9b782444406cc9cdb2",
+    "bytes": 1194
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\Questions.txt",
+    "sha256": "c52854955da9d4e841f07a3e7d16a9ac43afe27da9af6c07d679d7c00fd00a3a",
+    "bytes": 458
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\Subjonctif.txt",
+    "sha256": "385d787778b29bf378e1fd61640694d418537d26a6a624ffd2ce12b1f6dfcb2a",
+    "bytes": 3301
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\editor-update\\notes",
+    "path": "tests\\french\\support\\private\\editor-notes\\wrods, verbs.txt",
+    "sha256": "5c098d63d2617f8f9375ad2c364eda74129063a2dd3b93582314b54bca3f8d5d",
+    "bytes": 35283
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\Adverbs.txt",
+    "sha256": "969fc673dec68a8ac35f8b8566668cc44cbc5d4a8ce73fc4b12608924249bb7d",
+    "bytes": 2188
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\COD-COI.txt",
+    "sha256": "befbece77489eb8514322e2d7e66b76dcc0bc1555f0ada94366f8d7374cac0f3",
+    "bytes": 1980
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\Directions.txt",
+    "sha256": "35fd785c25bcda3c1408225994ade6ead2c8bab8e4e55ec5a627e28475309fd8",
+    "bytes": 504
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\Expressions.txt",
+    "sha256": "4f4d04b49f2dbc0c4a1f4bce382ac05e60589ee890876f253fb5f9917e86556d",
+    "bytes": 3331
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\Faire.txt",
+    "sha256": "a3f74c83e3f7f1a83f46b73242618a0ab999bf60f0fdf7c162eece51e9b71b7a",
+    "bytes": 2497
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\Gérondif.txt",
+    "sha256": "f917e2b6826d758430b8c110f40dc11bb80576ad10d9cad12d1147d8a98c9560",
+    "bytes": 2871
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\Les connecteurs logiques.txt",
+    "sha256": "598ec176c35ae94720dcebb541cb74459d6989da824fc37efad6e364a5641245",
+    "bytes": 1896
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\Overall Examples.txt",
+    "sha256": "0313e9ec4e09f4950ee436c58c53567b51a8c764a1c83a75de612c8c6a1b0385",
+    "bytes": 7701
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\passe compose.txt",
+    "sha256": "78c13031c84898aeb29130cbf286ecf7df7e49f1d001eae078c99752b60fe07b",
+    "bytes": 41
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\phrases impératives.txt",
+    "sha256": "f08e26dc561a45a85026bc6b6f0ef2ba687d55e3c42f5e9b782444406cc9cdb2",
+    "bytes": 1194
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\Questions.txt",
+    "sha256": "fdfc6070a36f1b0c696b30055e692a67b0915a711e96c37e78893ebf97863fc9",
+    "bytes": 403
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\Subjonctif.txt",
+    "sha256": "385d787778b29bf378e1fd61640694d418537d26a6a624ffd2ce12b1f6dfcb2a",
+    "bytes": 3301
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes",
+    "path": "tests\\french\\support\\private\\append-notes\\wrods, verbs.txt",
+    "sha256": "a5236dfe2110d883e0958e03452bc2a4fa6d3c6dd098441c36ef57d8996a3b24",
+    "bytes": 33352
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\Adverbs.txt",
+    "sha256": "46332c3196fabd0bea54a1a5116fce1c1275b886201bd4e9497fd1c707386811",
+    "bytes": 2963
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\COD-COI.txt",
+    "sha256": "66ac9b31a1bc6d5fb68c17b6668a89fc1d7bdab872901591a91cc94ec858b698",
+    "bytes": 4938
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\Directions.txt",
+    "sha256": "fc70855b7b07f00a313f8e07c3fdab437d607062b11d8b08e83b2268516a6e8a",
+    "bytes": 1406
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\Expressions.txt",
+    "sha256": "a4df0aaed18de0fe516c572151c33a009e0f16659b7f114c73314033883a4145",
+    "bytes": 12560
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\Faire.txt",
+    "sha256": "871f144fee0e2ca55588a297b9853a9ee6c24474a75f8096dffa093486d845af",
+    "bytes": 7481
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\Gérondif.txt",
+    "sha256": "365f0589926e2010b8c6763af02dd5c5cbfd94b91950aeffcad6c554b1e439b3",
+    "bytes": 5516
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\Les connecteurs logiques.txt",
+    "sha256": "e0c79584d27c40c19ce069b47f73ec04f9c9d686803e82660a1dfcd9bb2cce68",
+    "bytes": 2854
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\Overall Examples.txt",
+    "sha256": "e1803987494220de88cd45591b4af3c0369847b5ae5e9eadc9b01cf970871234",
+    "bytes": 23877
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\passe compose.txt",
+    "sha256": "f95f30121811a1a14b695df934154ec1f81293bb5054f8f12800bd3752c80061",
+    "bytes": 1680
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\phrases impératives.txt",
+    "sha256": "44c0734798c274f6446ec509fb4848c3e3b35f5a76e5b482bdeb2d79568d297e",
+    "bytes": 2739
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\Questions.txt",
+    "sha256": "33d796595032ea732f98616bb88b8def4e5c709454385360c5d5151552da5bc7",
+    "bytes": 1747
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\Subjonctif.txt",
+    "sha256": "ce7f386248f482e9c8b93d92711fdfdd86643c3c1c290f64b07c348f6417729c",
+    "bytes": 7429
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\before\\notes",
+    "path": "tests\\french\\support\\private\\expression-notes\\wrods, verbs.txt",
+    "sha256": "03fe4faa56a9e0051d651e59b6f332bc2a7cad3f36575aa409f71ffbdba89ab5",
+    "bytes": 71977
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\notes-expressions-20261106T201106Z\\plan.json",
+    "path": "tests\\french\\support\\private\\expression-plan.json",
+    "sha256": "ebf80e1cf82d985858a394c0a97c2efba7f89cbf5ea155b6a82fbde1a58d82e5",
+    "bytes": 316426
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Adverbs.txt",
+    "sha256": "46332c3196fabd0bea54a1a5116fce1c1275b886201bd4e9497fd1c707386811",
+    "bytes": 2963
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Avoir.txt",
+    "sha256": "b4d2805b665a58c53266a004aafa1d73009ad561f3fd51f15900eecc7d9b0e65",
+    "bytes": 7117
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\COD-COI.txt",
+    "sha256": "1e74b8e81b2f570ed4c5f807260e9f151abe0f4e97731837c9ac9d71d2b3827c",
+    "bytes": 4937
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Conditionnel.txt",
+    "sha256": "1d63570865d932cdb34220c8fa08f29597b7749bc49ee014edcaf1c094c46d9d",
+    "bytes": 979
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Directions.txt",
+    "sha256": "fc70855b7b07f00a313f8e07c3fdab437d607062b11d8b08e83b2268516a6e8a",
+    "bytes": 1406
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Expressions.txt",
+    "sha256": "bbba4531afb4ff8397f30c6d4e104ae5fc2624313d2b3439a68cfa53822e7e30",
+    "bytes": 22006
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Faire.txt",
+    "sha256": "da70071ae9ec707b15047ec6aa6d6b619e5909cefee1ee0b46ff6533455a4d61",
+    "bytes": 7084
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Gérondif.txt",
+    "sha256": "098e76ee9a8f704e6a9cdbcb17cb9ef13fc0bcab0ed0dd4765c2b13c4052ebc4",
+    "bytes": 5518
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Indicatif.txt",
+    "sha256": "6843556e751ffe01022f32d0cd6f08d55b6726489d82ad0e339bd642dc090fab",
+    "bytes": 33737
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Les connecteurs logiques.txt",
+    "sha256": "dcdca9dd17f62d89400c8f73e1454648de51603324b0973cd5885a8ccd5b9bde",
+    "bytes": 3521
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\phrases impératives.txt",
+    "sha256": "20694038c864076ef44256c6b25261a21822e7d7a173d6031a93b270bdd2aace",
+    "bytes": 3032
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Questions.txt",
+    "sha256": "20bf680235991b1f949d3084b2a0021b3a542307585c542329be4ed2ac717dd1",
+    "bytes": 1769
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\Subjonctif.txt",
+    "sha256": "7f1f3a851fd2b6c499ce669866bbc32bf52f796c768d6edba06d082cadc7d60b",
+    "bytes": 6073
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\staged",
+    "path": "tests\\french\\support\\private\\indicatif-notes\\wrods, verbs.txt",
+    "sha256": "d8157413d63e656e316126633eec2d4689c5b137ad40832d458139edb4bb7533",
+    "bytes": 70642
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\checks\\indicatif-20261110T152321Z\\migration-ledger.json",
+    "path": "tests\\french\\support\\private\\indicatif-ledger.json",
+    "sha256": "94ca975601c2d37460f66280e55663a4cfff2821e78da1a949ecedc9e4ea5709",
+    "bytes": 614913
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Adverbs.txt",
+    "sha256": "ee5617aed450bf7ae4e826b0e7847e4d66fddaa7b55217d3e5ecdcba54faeb0e",
+    "bytes": 3207
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Avoir.txt",
+    "sha256": "5a6d5f530fa8359faa3b8b2aa6f011af51af1708acde83722b08be3758d21891",
+    "bytes": 11194
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\COD-COI.txt",
+    "sha256": "bae314c1fc675ca28a7ccd7875b4b759c96edcb6f5c0421e7dcb0de2ea46fc5b",
+    "bytes": 6711
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Conditionnel.txt",
+    "sha256": "c8fd3bb3abf01139c8fc9362c66afded66efce941b76ccc24af555fefc2fd08b",
+    "bytes": 966
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Directions.txt",
+    "sha256": "9a307d3479150f431b9ff773f3782a439e2e6d1914ccd6ef6a9756a2ef674026",
+    "bytes": 1748
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Expressions.txt",
+    "sha256": "7376301272b19b3883c393de5bc12d6d8d2df4e19c97bd7cf6907b7971dc28df",
+    "bytes": 41032
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Faire.txt",
+    "sha256": "6a1abc84c829edb6e58b9dd227d1e00cc46a21b4b5a7fc170cf7a5438422a578",
+    "bytes": 7863
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Gérondif.txt",
+    "sha256": "098e76ee9a8f704e6a9cdbcb17cb9ef13fc0bcab0ed0dd4765c2b13c4052ebc4",
+    "bytes": 5518
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Indicatif.txt",
+    "sha256": "59bb5a4058dc957e0a9627faae583503352ecebbecd050aa67128bc8f483cf1d",
+    "bytes": 40249
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Les connecteurs logiques.txt",
+    "sha256": "dcdca9dd17f62d89400c8f73e1454648de51603324b0973cd5885a8ccd5b9bde",
+    "bytes": 3521
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\phrases impératives.txt",
+    "sha256": "a04c784b26e78e4f0940f0b6231c3903193db10b119ee22969d26b78ec3df36f",
+    "bytes": 3204
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Questions.txt",
+    "sha256": "803b9b55049e718e5cf022e52bd37c502f050ed61f889654fe15a9d42651f337",
+    "bytes": 2559
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\Subjonctif.txt",
+    "sha256": "7f1f3a851fd2b6c499ce669866bbc32bf52f796c768d6edba06d082cadc7d60b",
+    "bytes": 6073
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\wrods, verbs.txt",
+    "sha256": "39ccdc9aa2f235ecb94c079573872caba876d88f7cd931b4091b59b004c51a30",
+    "bytes": 78339
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\Adverbs.txt",
+    "sha256": "969fc673dec68a8ac35f8b8566668cc44cbc5d4a8ce73fc4b12608924249bb7d",
+    "bytes": 2188
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\COD-COI.txt",
+    "sha256": "befbece77489eb8514322e2d7e66b76dcc0bc1555f0ada94366f8d7374cac0f3",
+    "bytes": 1980
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\Directions.txt",
+    "sha256": "35fd785c25bcda3c1408225994ade6ead2c8bab8e4e55ec5a627e28475309fd8",
+    "bytes": 504
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\Expressions.txt",
+    "sha256": "4f4d04b49f2dbc0c4a1f4bce382ac05e60589ee890876f253fb5f9917e86556d",
+    "bytes": 3331
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\Faire.txt",
+    "sha256": "a3f74c83e3f7f1a83f46b73242618a0ab999bf60f0fdf7c162eece51e9b71b7a",
+    "bytes": 2497
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\Gérondif.txt",
+    "sha256": "f917e2b6826d758430b8c110f40dc11bb80576ad10d9cad12d1147d8a98c9560",
+    "bytes": 2871
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\Les connecteurs logiques.txt",
+    "sha256": "598ec176c35ae94720dcebb541cb74459d6989da824fc37efad6e364a5641245",
+    "bytes": 1896
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\Overall Examples.txt",
+    "sha256": "0313e9ec4e09f4950ee436c58c53567b51a8c764a1c83a75de612c8c6a1b0385",
+    "bytes": 7701
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\passe compose.txt",
+    "sha256": "78c13031c84898aeb29130cbf286ecf7df7e49f1d001eae078c99752b60fe07b",
+    "bytes": 41
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\phrases impératives.txt",
+    "sha256": "f08e26dc561a45a85026bc6b6f0ef2ba687d55e3c42f5e9b782444406cc9cdb2",
+    "bytes": 1194
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\Questions.txt",
+    "sha256": "fdfc6070a36f1b0c696b30055e692a67b0915a711e96c37e78893ebf97863fc9",
+    "bytes": 403
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\Subjonctif.txt",
+    "sha256": "385d787778b29bf378e1fd61640694d418537d26a6a624ffd2ce12b1f6dfcb2a",
+    "bytes": 3301
+  },
+  {
+    "source": "D:\\telegram bots\\French Notes\\french",
+    "path": "tests\\french\\support\\private\\current-notes\\back up\\wrods, verbs.txt",
+    "sha256": "a5236dfe2110d883e0958e03452bc2a4fa6d3c6dd098441c36ef57d8996a3b24",
+    "bytes": 33352
+  }
+]

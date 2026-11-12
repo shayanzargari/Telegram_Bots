@@ -1,0 +1,3 @@
+# __BOT_DISPLAY_NAME__
+
+Read the installation's root AGENTS.md and current checkpoint. This package uses shared managed contract 1; do not import other bots or core. Preserve state and update identities. Do not initialize missing expected production state. Polling starts only after credential identity verification and the numeric polling lock. Tests use isolated state/fake transport. Use the maintained generator, coordinator and catalogs.

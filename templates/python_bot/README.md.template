@@ -1,0 +1,11 @@
+# __BOT_DISPLAY_NAME__
+
+Created by Bot Control Center template 1.0.0, managed contract 1.
+
+This bot starts disabled and stopped. Registering, validating and enabling it do not start polling. Set a verified numeric Telegram identity and import its credential through the masked local credential command, then explicitly Enable and Start in the dashboard.
+
+The installed entry point is `__BOT_ID__ --root <installation> --bot __BOT_ID__`. It owns its standalone lifetime, numeric identity lock and worker containment. Core management uses the same runtime contract. Missing state blocks startup; explicit project creation initializes `data/__BOT_ID__/` once.
+
+The package owns business behavior in `src/__BOT_PACKAGE__/managed.py`. `apply_local_update` runs inside the durable update transaction; keep local writes on the supplied database connection. Remote sends cannot promise exactly-once effects after a lost response. Add only requested capabilities and register maintenance resource/cancellation contracts before exposing jobs.
+
+Run `py -3.11 tools/testing/run_tests.py --suite __BOT_ID__.contract` from the installation. Tests use fake updates and temporary state; they never load production credentials.

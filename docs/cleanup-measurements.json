@@ -1,0 +1,144 @@
+{
+  "active_writer_caveat": "Point-in-time traversal; unrelated/concurrent writers can change sizes and volume free space.",
+  "allocation_scope": "GetFileInformationByHandleEx FileStandardInfo.AllocationSize; filesystem metadata is not attributed per file and hard-linked streams may be counted per pathname",
+  "allocation_unavailable_files": 0,
+  "created": 1794436566.5527756,
+  "current_allocated_file_bytes": 1259515088,
+  "current_root_logical_bytes": 1190025036,
+  "groups": {
+    "(root files)": {
+      "allocated_bytes": 79472,
+      "allocation_unavailable": 0,
+      "files": 10,
+      "logical_bytes": 69546
+    },
+    ".agents": {
+      "allocated_bytes": 12288,
+      "allocation_unavailable": 0,
+      "files": 3,
+      "logical_bytes": 3968
+    },
+    ".git": {
+      "allocated_bytes": 3393736,
+      "allocation_unavailable": 0,
+      "files": 453,
+      "logical_bytes": 2769967
+    },
+    ".secrets": {
+      "allocated_bytes": 792,
+      "allocation_unavailable": 0,
+      "files": 3,
+      "logical_bytes": 786
+    },
+    ".venvs": {
+      "allocated_bytes": 339743792,
+      "allocation_unavailable": 0,
+      "files": 14092,
+      "logical_bytes": 315101357
+    },
+    "French Notes": {
+      "allocated_bytes": 71378304,
+      "allocation_unavailable": 0,
+      "files": 3399,
+      "logical_bytes": 65798722
+    },
+    "Our_Home_Telegram_Bot": {
+      "allocated_bytes": 38077576,
+      "allocation_unavailable": 0,
+      "files": 891,
+      "logical_bytes": 36475876
+    },
+    "backups": {
+      "allocated_bytes": 211205040,
+      "allocation_unavailable": 0,
+      "files": 5158,
+      "logical_bytes": 202401832
+    },
+    "bots": {
+      "allocated_bytes": 1973456,
+      "allocation_unavailable": 0,
+      "files": 140,
+      "logical_bytes": 1728217
+    },
+    "config": {
+      "allocated_bytes": 54056,
+      "allocation_unavailable": 0,
+      "files": 9,
+      "logical_bytes": 43181
+    },
+    "core": {
+      "allocated_bytes": 711112,
+      "allocation_unavailable": 0,
+      "files": 47,
+      "logical_bytes": 644642
+    },
+    "data": {
+      "allocated_bytes": 78993136,
+      "allocation_unavailable": 0,
+      "files": 2396,
+      "logical_bytes": 75169880
+    },
+    "docs": {
+      "allocated_bytes": 8069120,
+      "allocation_unavailable": 0,
+      "files": 16,
+      "logical_bytes": 8038784
+    },
+    "launchers": {
+      "allocated_bytes": 1888,
+      "allocation_unavailable": 0,
+      "files": 9,
+      "logical_bytes": 1855
+    },
+    "logs": {
+      "allocated_bytes": 312,
+      "allocation_unavailable": 0,
+      "files": 2,
+      "logical_bytes": 300
+    },
+    "node_modules": {
+      "allocated_bytes": 19017256,
+      "allocation_unavailable": 0,
+      "files": 182,
+      "logical_bytes": 18694190
+    },
+    "shared": {
+      "allocated_bytes": 204040,
+      "allocation_unavailable": 0,
+      "files": 34,
+      "logical_bytes": 165615
+    },
+    "templates": {
+      "allocated_bytes": 21520,
+      "allocation_unavailable": 0,
+      "files": 7,
+      "logical_bytes": 14757
+    },
+    "tests": {
+      "allocated_bytes": 4156736,
+      "allocation_unavailable": 0,
+      "files": 205,
+      "logical_bytes": 3765404
+    },
+    "tools": {
+      "allocated_bytes": 374488,
+      "allocation_unavailable": 0,
+      "files": 47,
+      "logical_bytes": 305341
+    },
+    "work": {
+      "allocated_bytes": 482046968,
+      "allocation_unavailable": 0,
+      "files": 13882,
+      "logical_bytes": 458830816
+    }
+  },
+  "initial_application_and_plan_logical_bytes": 191252033,
+  "links_or_concurrent_missing_files_skipped": 0,
+  "measurement_scope": "Workspace root including new environments, backups, logs and work; initial external AppData is outside this root",
+  "net_workspace_logical_growth_bytes": 998773003,
+  "root": "D:\\telegram bots",
+  "schema": 1,
+  "status": "Passed",
+  "volume_free_bytes": 2378317824
+}

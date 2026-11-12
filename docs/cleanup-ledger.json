@@ -1,0 +1,126 @@
+{
+  "entries": [
+    {
+      "classification": 4,
+      "consumers_checked": [
+        "No application imports or launchers existed when this generated capture was created",
+        "Only inventory capture process owned it and has exited",
+        "Git/generated indexing excludes backups"
+      ],
+      "expected_fingerprint": {
+        "bytes": 55048238,
+        "files": 2312,
+        "sha256": "bf011bce96ca2219e228dcefeae98bbce8b35d4206186db89076b4d945eb9b6d"
+      },
+      "logical_bytes_removed": 55048238,
+      "no_active_consumer": true,
+      "no_active_run": true,
+      "owner": "recovery",
+      "partial_capture_proof": "work/cleanup/partial-capture-coverage.json",
+      "path": "D:\\telegram bots\\backups\\pre-migration-20261111T191238Z",
+      "preservation_route": "backups/pre-migration-20261111T191326Z; preserved failure outcome and per-member coverage in work/cleanup/partial-capture-coverage.json",
+      "reason": "Failed capture resolved by a fully restored verified replacement; every encrypted partial member independently decrypted and covered",
+      "removed_at": 1794425620.909323,
+      "status": "Removed",
+      "verification": [
+        "work/cleanup/partial-capture-coverage.json",
+        "work/recovery/original-rehearsal-verified/summary.json"
+      ]
+    },
+    {
+      "classification": 4,
+      "consumers_checked": [
+        "Active application/launcher/test/tool references reviewed; only original sources and explicit inventory/migration/recovery tools refer to this path",
+        "tools/cleanup/environment_preflight.py compared original runtime dependency code and versions to final replacement",
+        "Actual process writer refresh must be repeated immediately before apply"
+      ],
+      "expected_fingerprint": {
+        "bytes": 40262763,
+        "files": 2619,
+        "sha256": "2fac899afbba81ef4d874bc5843a754485d048ece831cac95b4bcd7c03ab56ba"
+      },
+      "logical_bytes_removed": 40262763,
+      "no_active_consumer": true,
+      "no_active_run": true,
+      "owner": "french-reader",
+      "path": "D:\\telegram bots\\French Notes\\.venv-bot",
+      "preservation_route": "Protected original source and requirements in backups/pre-migration-20261111T191326Z; retained compatible wheel hashes in work/cleanup/environment-reconstruction.json; final replacement .venvs/french-reader",
+      "reason": "Superseded dependency tree with exact-version and byte-compared final replacement; apply only after final installed acceptance and activation",
+      "remaining_gates": [],
+      "removed_at": 1794436463.2344356,
+      "status": "Removed",
+      "verification": [
+        "work/cleanup/environment-reconstruction.json",
+        "work/cleanup/final-replacement-gates.json"
+      ],
+      "verified_at": 1794436440.8865497
+    },
+    {
+      "classification": 4,
+      "consumers_checked": [
+        "Active application/launcher/test/tool references reviewed; only original sources and explicit inventory/migration/recovery tools refer to this path",
+        "tools/cleanup/environment_preflight.py compared original runtime dependency code and versions to final replacement",
+        "Actual process writer refresh must be repeated immediately before apply"
+      ],
+      "expected_fingerprint": {
+        "bytes": 29948707,
+        "files": 1892,
+        "sha256": "404a0f95f3f4a0967ac5ed6fce28ae4b099cf06c90459e0c578373a4dadd83a2"
+      },
+      "logical_bytes_removed": 29948707,
+      "no_active_consumer": true,
+      "no_active_run": true,
+      "owner": "french-editor",
+      "path": "D:\\telegram bots\\French Notes\\.venv",
+      "preservation_route": "Protected original source and requirements in backups/pre-migration-20261111T191326Z; retained compatible wheel hashes in work/cleanup/environment-reconstruction.json; final replacement .venvs/french-editor",
+      "reason": "Superseded dependency tree with exact-version and byte-compared final replacement; apply only after final installed acceptance and activation",
+      "remaining_gates": [],
+      "removed_at": 1794436466.2308881,
+      "status": "Removed",
+      "verification": [
+        "work/cleanup/environment-reconstruction.json",
+        "work/cleanup/final-replacement-gates.json"
+      ],
+      "verified_at": 1794436440.8865497
+    },
+    {
+      "classification": 4,
+      "consumers_checked": [
+        "Active application/launcher/test/tool references reviewed; only original sources and explicit inventory/migration/recovery tools refer to this path",
+        "tools/cleanup/environment_preflight.py compared original runtime dependency code and versions to final replacement",
+        "Actual process writer refresh must be repeated immediately before apply"
+      ],
+      "expected_fingerprint": {
+        "bytes": 18694190,
+        "files": 182,
+        "sha256": "88fafe08ecb1da29e3c2ca142f3a82bf4b9e0d7c866a3d60f165e345dbd7a0bb"
+      },
+      "logical_bytes_removed": 18694190,
+      "no_active_consumer": true,
+      "no_active_run": true,
+      "owner": "browser",
+      "path": "D:\\telegram bots\\French Notes\\node_modules",
+      "preservation_route": "Protected original source and requirements in backups/pre-migration-20261111T191326Z; retained compatible wheel hashes in work/cleanup/environment-reconstruction.json; final replacement node_modules",
+      "reason": "Superseded dependency tree with exact-version and byte-compared final replacement; apply only after final installed acceptance and activation",
+      "remaining_gates": [],
+      "removed_at": 1794436466.548975,
+      "status": "Removed",
+      "verification": [
+        "work/cleanup/environment-reconstruction.json",
+        "work/cleanup/final-replacement-gates.json"
+      ],
+      "verified_at": 1794436440.8865497
+    }
+  ],
+  "last_batch": {
+    "allocation_measurement": "Volume free-space delta; concurrent unrelated writers may affect it",
+    "archive_moves_count_as_reclaimed": false,
+    "created": 1794436466.548975,
+    "logical_bytes_removed": 88905660,
+    "observed_volume_free_delta": 98107392,
+    "removed_items": 3,
+    "schema": 1,
+    "status": "Passed"
+  },
+  "schema": 1
+}

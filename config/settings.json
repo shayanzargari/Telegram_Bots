@@ -1,0 +1,6 @@
+{
+  "autostart": false,
+  "port": 8765,
+  "schema": 1,
+  "timezone": "America/New_York"
+}

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Home · Local Telegram</title>
+<style>
+:root{font:16px/1.5 system-ui,sans-serif;color:#172f3a;background:#edf2f4}*{box-sizing:border-box}body{margin:0}button,select,textarea{font:inherit}button,select{min-height:42px;border:1px solid #c9d8de;border-radius:9px;background:white;color:inherit;padding:7px 12px}button{cursor:pointer}button:hover{background:#e5f1f6}button:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #2189bc;outline-offset:2px}button:disabled{opacity:.6;cursor:wait}header{background:#183d4c;color:white;padding:18px 24px}header h1{font-size:21px;margin:0}header p{margin:4px 0 0;color:#d2e2e9;font-size:14px}.layout{max-width:1150px;margin:auto;display:grid;grid-template-columns:260px minmax(0,1fr);height:calc(100dvh - 99px)}aside{padding:20px;border-right:1px solid #cfdbdf;overflow:auto}label{display:block;margin:12px 0 5px;font-weight:600;font-size:14px}select{width:100%}aside p{font-size:13px;color:#4e6771}.commands{display:grid;gap:7px;margin-top:14px}.commands button{text-align:left}.chat{display:flex;flex-direction:column;min-height:0;background:#e1eaee}.messages{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:12px}.message{flex-shrink:0;max-width:92%;width:fit-content;min-width:200px;background:white;border:1px solid #d3dfe4;border-radius:14px;padding:12px 15px;box-shadow:0 2px 5px #183d4c08}.message.user{align-self:flex-end;background:#d6eedb}.meta{display:flex;gap:10px;align-items:center;color:#617680;font-size:12px;margin-bottom:5px}.meta .reply{min-height:26px;font-size:12px;padding:1px 7px;margin-left:auto}.text{white-space:pre-wrap;overflow-wrap:anywhere}.row{display:flex;gap:6px;margin-top:6px}.row button{flex:1;min-width:0;font-size:14px;white-space:nowrap;background:#edf5f8}.row button.danger{color:#a22929;background:#fff0ee}.row button.primary{background:#1777a4;color:white}.document{display:block;margin-top:8px;color:#12648c}.compose{padding:12px 18px;background:#f7fafb;border-top:1px solid #cddce1}form{display:flex;gap:9px}textarea{resize:vertical;min-height:48px;max-height:160px;flex:1;min-width:0;border:1px solid #c4d5dd;border-radius:10px;padding:10px}.send{background:#1777a4;color:white}.replying{font-size:13px;color:#28677e;padding:0 0 8px}.replying button{min-height:26px;padding:0 8px;margin-left:10px}#status{font-size:12px;margin-top:14px;overflow-wrap:anywhere}#toast{position:fixed;bottom:105px;left:50%;transform:translateX(-50%);background:#153c4e;color:white;padding:10px 18px;border-radius:10px;max-width:90%;z-index:3}details{margin-top:24px}summary{cursor:pointer;font-size:14px;font-weight:600}.fault{width:100%;margin-top:10px}@media(max-width:700px){header{padding:12px 16px}.layout{grid-template-columns:1fr;height:calc(100dvh - 89px)}aside{padding:6px 12px;border-right:0;border-bottom:1px solid #ccd9df;display:flex;gap:10px;align-items:center;flex-wrap:wrap;max-height:170px}aside label{margin:0}aside .field{flex:1;min-width:135px}aside p,aside details,#status{display:none}.commands{display:flex;width:100%;overflow:auto;margin:0;padding-bottom:4px}.commands button{white-space:nowrap}.messages{padding:12px}.message{max-width:98%}.compose{padding:10px}.layout{display:flex;flex-direction:column}.chat{flex:1}}
+
+.row button{white-space:normal;overflow-wrap:anywhere;min-height:44px}.row{gap:8px}.meta .reply,.replying button{min-height:44px}.message{overflow-wrap:anywhere}
+</style></head><body>
+<header><h1>Our Home · Local Telegram</h1><p>Test chat on this computer. Synthetic users and tasks; no real Telegram connection.</p></header>
+<div class="layout"><aside>
+<div class="field"><label for="user">Act as</label><select id="user"><option value="101">Alex · Owner</option><option value="202">Sam · Partner</option><option value="303">Visitor · No access</option></select></div>
+<div class="field"><label for="chat">Conversation</label><select id="chat"><option value="group">Shared group</option><option value="private">Private bot chat</option><option value="other">Unrelated group</option></select></div>
+<p>Use buttons as in Telegram. To add tasks, reply to the bot’s prompt. Switch users to test sharing and permissions.</p>
+<nav class="commands" id="commands" aria-label="Bot commands"></nav>
+<details><summary>Simulate a connection problem</summary><label for="method">Next request</label><select id="method"><option>editMessageText</option><option>sendMessage</option><option>sendDocument</option><option>getUpdates</option></select><label for="failure">Failure</label><select id="failure"><option value="500">Server error before saving</option><option value="429">Rate limit</option><option value="disconnect_before">Connection lost before saving</option><option value="disconnect_after">Saved, but response lost</option></select><button class="fault" id="fault">Apply once</button></details>
+<div id="status" role="status">Connecting…</div></aside>
+<main class="chat" aria-label="Telegram test chat"><div class="messages" id="messages"></div><div class="compose"><div class="replying" id="replying" hidden></div><form id="form"><textarea id="text" rows="1" aria-label="Message" placeholder="Type /menu to start. Shift+Enter for a new line."></textarea><button class="send" type="submit">Send</button></form></div></main></div>
+<div id="toast" role="status" hidden></div>
+<script>
+const $ = id => document.getElementById(id);
+let state = null, version = -1, replyId = null, lastAnswer = '', toastTimer;
+let seenPrompts = new Set(), sending = false, commandsSignature = '';
+const uid = () => Number($('user').value);
+const chatId = () => $('chat').value === 'private' ? uid() : $('chat').value === 'other' ? -100222 : -100111;
+
+function toast(text) {
+  $('toast').textContent = text; $('toast').hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => $('toast').hidden = true, 4500);
+}
+async function request(path, options = {}) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 5000);
+  try {
+    const r = await fetch(path, {...options, signal:controller.signal});
+    const value = await r.json();
+    if (!r.ok) throw Error(value.description || value.error || 'Request failed');
+    return value;
+  } catch (e) {
+    if (e.name === 'AbortError') throw Error('Request timed out. Check the chat before retrying.');
+    throw e;
+  } finally { clearTimeout(timer); }
+}
+async function post(path, data) {
+  return (await request(path, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)})).result;
+}
+function reply(id, focus = true) {
+  replyId = id; $('replying').hidden = id === null; $('replying').replaceChildren();
+  if (id !== null) {
+    $('replying').append(document.createTextNode('Replying to message #' + id));
+    const b = document.createElement('button'); b.textContent = 'Cancel reply'; b.type = 'button';
+    b.onclick = () => reply(null); $('replying').append(b);
+  }
+  if (focus) $('text').focus();
+}
+function bodyText(node, text, rich) {
+  if (!rich) { node.textContent = text; return; }
+  const doc = new DOMParser().parseFromString(text, 'text/html');
+  function clean(source, target) {
+    for (const child of source.childNodes) {
+      if (child.nodeType === 3) { target.append(document.createTextNode(child.textContent)); continue; }
+      if (child.nodeType !== 1) continue;
+      const tag = child.tagName.toLowerCase();
+      const element = document.createElement(['b','strong','i','em','code','pre','u','s'].includes(tag) ? tag : 'span');
+      clean(child, element); target.append(element);
+    }
+  }
+  clean(doc.body, node);
+}
+function messageCard(m) {
+  const card = document.createElement('article');
+  card.className = 'message' + (m.from.is_bot ? '' : ' user');
+  card.dataset.messageId = m.message_id; card.tabIndex = -1;
+  const meta = document.createElement('div'); meta.className = 'meta';
+  meta.textContent = m.from.first_name + ' · #' + m.message_id;
+  if (m.from.is_bot) {
+    const b = document.createElement('button'); b.className = 'reply'; b.textContent = 'Reply';
+    b.onclick = () => reply(m.message_id); meta.append(b);
+  }
+  card.append(meta);
+  const text = document.createElement('div'); text.className = 'text';
+  bodyText(text, m.text || m.caption || '', m.parse_mode === 'HTML'); card.append(text);
+  if (m.document) {
+    const a = document.createElement('a'); a.className = 'document';
+    a.href = '/sim/download/' + m.document.file_id; a.download = m.document.file_name;
+    a.textContent = 'Download ' + m.document.file_name; card.append(a);
+  }
+  for (const row of m.reply_markup?.inline_keyboard || []) {
+    const line = document.createElement('div'); line.className = 'row';
+    for (const b of row) {
+      const button = document.createElement('button'); button.textContent = b.text;
+      button.className = b.style || ''; button.dataset.callback = b.callback_data;
+      button.onclick = async () => {
+        button.disabled = true;
+        try { await post('/sim/click', {uid:uid(), chat_id:chatId(), message_id:m.message_id, data:b.callback_data}); }
+        catch (e) { toast(e.message); }
+        finally { button.disabled = false; }
+      };
+      line.append(button);
+    }
+    card.append(line);
+  }
+  return card;
+}
+function updateStatus() {
+  $('status').textContent = state.error ? 'Bot error: ' + state.error :
+    'API requests: ' + (state.api_attempts ?? state.api_calls) + ' · Pending updates: ' + state.queued_updates;
+}
+function render() {
+  if (!state) return;
+  const box = $('messages'), atBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 70;
+  const messages = state.messages.filter(m => m.chat.id === chatId());
+  const existing = new Map([...box.children].map(card => [Number(card.dataset.messageId), card]));
+  for (let index = 0; index < messages.length; index++) {
+    const m = messages[index], signature = JSON.stringify(m);
+    let card = existing.get(m.message_id); existing.delete(m.message_id);
+    if (!card || card._messageSignature !== signature) {
+      const focused = card?.contains(document.activeElement) ? document.activeElement : null;
+      const callback = focused?.dataset.callback;
+      const replacement = messageCard(m); replacement._messageSignature = signature;
+      if (card) card.replaceWith(replacement);
+      card = replacement;
+      if (focused) {
+        const buttons = [...card.querySelectorAll('[data-callback]')];
+        const target = buttons.find(b => b.dataset.callback === callback) ||
+          (callback?.startsWith('task:') && buttons.find(b => b.dataset.callback.startsWith('task:') &&
+            b.dataset.callback.split(':')[2] === callback.split(':')[2]));
+        (target || card).focus({preventScroll:true});
+      }
+    }
+    if (box.children[index] !== card) box.insertBefore(card, box.children[index] || null);
+    if (m.reply_markup?.force_reply && !seenPrompts.has(uid() + ':' + m.message_id) &&
+        (!m.reply_markup.selective || m.text.includes('tg://user?id=' + uid()))) {
+      seenPrompts.add(uid() + ':' + m.message_id); reply(m.message_id);
+    }
+  }
+  for (const card of existing.values()) card.remove();
+  if (replyId !== null && !messages.some(m => m.message_id === replyId)) reply(null, false);
+  if (atBottom) box.scrollTop = box.scrollHeight;
+  updateStatus();
+  const answer = state.answers.at(-1);
+  if (answer && answer.callback_query_id !== lastAnswer) {
+    lastAnswer = answer.callback_query_id; if (answer.text) toast(answer.text);
+  }
+  const commandData = JSON.stringify(state.commands);
+  if (commandsSignature !== commandData) {
+    commandsSignature = commandData; $('commands').replaceChildren();
+    for (const c of state.commands) {
+      const b = document.createElement('button'); b.textContent = '/' + c.command; b.title = c.description;
+      b.onclick = () => send('/' + c.command + (chatId() < 0 ? '@local_home_bot' : '')); $('commands').append(b);
+    }
+  }
+}
+async function send(text) {
+  if (!text.trim() || sending) return;
+  sending = true; const sendButton = document.querySelector('#form .send'); sendButton.disabled = true;
+  const context = {text, uid:uid(), chat_id:chatId(), reply_id:replyId};
+  try {
+    await post('/sim/message', context);
+    if (uid() === context.uid && chatId() === context.chat_id) {
+      if ($('text').value === text) $('text').value = '';
+      if (replyId === context.reply_id) reply(null);
+    }
+  } catch (e) { toast(e.message); }
+  finally { sending = false; sendButton.disabled = false; }
+}
+$('form').onsubmit = e => { e.preventDefault(); send($('text').value); };
+$('text').onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send($('text').value); } };
+for (const id of ['chat', 'user']) $(id).onchange = () => {
+  reply(null);
+  for (const m of state?.messages || []) if (m.reply_markup?.force_reply) seenPrompts.delete(uid() + ':' + m.message_id);
+  render(); $('messages').scrollTop = $('messages').scrollHeight;
+};
+$('fault').onclick = async () => {
+  try { await post('/sim/fail', {method:$('method').value, mode:$('failure').value}); toast('One simulated failure is ready.'); }
+  catch (e) { toast(e.message); }
+};
+async function poll() {
+  try {
+    const latest = await request('/sim/state');
+    if (!latest || !Array.isArray(latest.messages) || !Array.isArray(latest.commands) ||
+        !Array.isArray(latest.answers) || !Number.isFinite(latest.version)) throw Error('Invalid simulator state');
+    state = latest;
+    if (state.version !== version) { version = state.version; render(); }
+    else updateStatus();
+  } catch (e) { $('status').textContent = 'Simulator is unavailable.'; }
+  setTimeout(poll, 350);
+}
+poll();
+</script></body></html>

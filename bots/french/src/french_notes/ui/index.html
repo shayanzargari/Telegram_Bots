@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="app-token" content="__APP_TOKEN__">
+  <meta name="theme-color" content="#f6f7f3">
+  <title>French Notes</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#draft">Skip to new notes</a>
+  <aside class="sidebar" aria-label="Your notebook">
+    <div class="brand"><img src="/icon.svg" width="38" height="38" alt=""><div><strong>French Notes<span class="brand-dot">.</span></strong><span>Your everyday notebook</span></div></div>
+    <div class="sidebar-label">YOUR COLLECTION <span id="category-count"></span></div>
+    <nav id="categories" aria-label="Note categories"><p class="muted loading">Opening your notes…</p></nav>
+    <div class="folder-card"><span class="folder-icon" data-icon="folder"></span><div><strong>Saved on this computer</strong><span id="folder-path" title="Notes folder">D:\french</span></div><span class="status-dot" aria-hidden="true"></span></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar">
+      <div class="breadcrumb"><span data-icon="notebook"></span><span>My notebook</span><span class="slash">/</span><strong id="breadcrumb-current">Overall Examples</strong></div>
+      <div class="search-wrap">
+        <span data-icon="search"></span>
+        <input id="search" type="search" placeholder="Search all your notes" aria-label="Search all your notes" aria-controls="search-results" autocomplete="off" maxlength="200">
+        <kbd>Ctrl K</kbd>
+        <div id="search-panel" class="search-panel" hidden>
+          <div class="search-caption"><span id="search-summary">Searching…</span><button id="close-search" class="icon-button" aria-label="Close search results" data-icon="close"></button></div>
+          <div id="search-results" aria-label="Search results"></div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="page-heading" aria-labelledby="page-title">
+        <div><div class="eyebrow" id="group-label">EVERYDAY FRENCH</div><h1 id="page-title">Overall Examples</h1><p id="description">Useful sentences for everyday life.</p></div>
+        <div class="collection-mark" aria-hidden="true"><span data-icon="branch"></span><span>Un peu, chaque jour.</span></div>
+      </section>
+      <div class="panels">
+        <section class="paper reader" aria-labelledby="reader-title">
+          <header class="panel-heading"><div><span class="small-icon" data-icon="lines"></span><h2 id="reader-title">Your notes</h2><span id="line-count" class="count-pill">—</span></div><button id="refresh" class="quiet-button" title="Reload changes made in another editor"><span data-icon="refresh"></span>Refresh</button></header>
+          <div id="notes" class="notes" tabindex="0" aria-label="Current file contents" aria-busy="true"><div class="empty"><span data-icon="notebook"></span><h3>Opening your notebook</h3><p>Your notes will appear here.</p></div></div>
+          <footer class="reader-footer"><span data-icon="file"></span><span id="filename">Overall Examples.txt</span><span class="footer-hint">Your words, all together.</span></footer>
+        </section>
+        <aside class="compose-column">
+          <section class="paper composer" aria-labelledby="composer-title">
+            <div class="compose-intro"><span class="compose-icon" data-icon="pen"></span><h2 id="composer-title">A little more French</h2><p>A new phrase, a useful example. <br>Keep it here for next time.</p></div>
+            <form id="add-form">
+              <label for="draft">Add to <strong id="draft-category">Overall Examples</strong></label>
+              <div class="draft-wrap"><textarea id="draft" dir="auto" placeholder="Paste or write your notes here…&#10;&#10;One example or a whole collection." spellcheck="false" maxlength="350000"></textarea><div class="draft-meta"><span id="draft-lines">Ready when you are</span><span id="draft-saved"></span></div></div>
+              <p id="form-error" class="form-error" role="alert" hidden></p>
+              <button id="add-button" class="primary-button" type="submit" disabled><span data-icon="plus"></span><span id="add-label">Add to Overall Examples</span></button>
+              <div class="keyboard-hint"><span data-icon="corner"></span>or press <kbd>Ctrl</kbd> + <kbd>Enter</kbd></div>
+            </form>
+            <div class="undo-row"><button id="undo" class="quiet-button" disabled><span data-icon="undo"></span>Undo last addition</button></div>
+          </section>
+        </aside>
+      </div>
+      <footer class="page-footer"><span class="status-dot" aria-hidden="true"></span><span id="connection-status">Everything stays on your computer</span><span class="page-footer-right">A backup with every addition.</span></footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden><span data-icon="check-circle"></span><span id="toast-message"></span><button id="close-toast" class="icon-button" aria-label="Dismiss notification" data-icon="close"></button></div>
+  <dialog id="duplicates" aria-labelledby="duplicate-title" aria-describedby="duplicate-description">
+    <div class="dialog-icon" data-icon="copy"></div><h2 id="duplicate-title">A few familiar lines</h2><p id="duplicate-description"></p><div id="duplicate-list" class="duplicate-list"></div>
+    <p class="dialog-note">Similar lines are matched without capitalization or punctuation. You decide what to keep.</p>
+    <div class="dialog-actions"><button id="duplicate-cancel" class="quiet-button">Go back</button><button id="duplicate-skip" class="secondary-button">Skip duplicates</button><button id="duplicate-keep" class="primary-button">Add everything</button></div>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.secrets/
+.venvs/
+data/
+logs/
+backups/
+archive/
+work/
+**/__pycache__/
+**/*.py[cod]
+**/*.egg-info/
+**/node_modules/
+**/.venv*/
+**/.publish/
+**/.local-telegram/
+**/checks/
+**/build/
+**/dist/
+Our_Home_Telegram_Bot/data/
+French Notes/french/
+*.log
+*.sqlite*
+*.db
+.env*
+config.local.json
+/French Notes/
+/Our_Home_Telegram_Bot/
+/config/activation-journal.json
+/config/installation.json

@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bot-control-center"
+version = "1.0.0"
+requires-python = ">=3.11,<3.12"
+dependencies = ["bot-center-runtime==1.0.0", "fastapi==0.121.2", "uvicorn==0.38.0", "tzdata==2025.2", "httpx==0.28.1"]
+
+[project.scripts]
+bot-center = "bot_center.__main__:main"
+bot-center-launch = "bot_center.launcher:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+bot_center = ["ui/*"]

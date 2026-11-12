@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "french-notes"
+version = "1.0.0"
+requires-python = ">=3.11,<3.12"
+dependencies = ["bot-center-runtime==1.0.0", "python-telegram-bot==22.8", "edge-tts==7.3.1"]
+
+[project.scripts]
+french-reader = "french_notes.__main__:main"
+french-editor = "french_notes.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+french_notes = ["*.json", "*.html", "*.ps1", "ui/*", "telegram_bot/*.json", "telegram_bot/*.cjs"]

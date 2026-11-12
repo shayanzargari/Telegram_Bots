@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "home-bot"
+version = "1.0.0"
+requires-python = ">=3.11,<3.12"
+dependencies = ["bot-center-runtime==1.0.0"]
+
+[project.scripts]
+home-bot = "home_bot.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+home_bot = ["*.json", "*.html", "*.ps1", "ui/*", "telegram_bot/*.json"]

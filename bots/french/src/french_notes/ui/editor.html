@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="app-token" content="__APP_TOKEN__">
+  <title>French Notes</title>
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/editor.css">
+  <script src="/speech.js" defer></script>
+  <script src="/columns.js" defer></script>
+  <script src="/editor.js" defer></script>
+</head>
+<body>
+  <a href="#editor" class="skip-link">Skip to editor</a>
+  <aside class="sidebar" aria-label="Notes">
+    <div class="brand"><img src="/icon.svg" alt="" width="36" height="36"><strong>French Notes</strong></div>
+    <nav id="categories" aria-label="Note tabs"></nav>
+    <div class="folder"><span data-icon="folder"></span><span id="folder-path">D:\french</span></div>
+  </aside>
+  <main class="workspace">
+    <header class="topbar">
+      <h1 id="page-title">Indicatif</h1>
+      <div class="search-wrap">
+        <span data-icon="search"></span>
+        <input id="search" type="search" placeholder="Search notes" aria-label="Search notes" aria-controls="search-results" autocomplete="off" maxlength="200">
+        <div id="search-panel" hidden>
+          <div class="search-caption"><span id="search-summary"></span><button id="close-search" class="icon-button" aria-label="Close search" data-icon="close"></button></div>
+          <div id="search-results"></div>
+        </div>
+      </div>
+    </header>
+    <section class="editor-card" aria-label="Note editor">
+      <div class="toolbar">
+        <div class="editor-tools"><span id="save-status" role="status" aria-live="polite">Opening…</span><div id="editor-view" class="view-switch" role="group" aria-label="Editor view" hidden><button type="button" data-view="columns" aria-pressed="true">Columns</button><button type="button" data-view="text" aria-pressed="false">Text</button></div><div class="speech-controls"><label for="speech-voice">Voice</label><select id="speech-voice" title="French (France) neural voice"><option value="denise">Denise</option><option value="henri">Henri</option><option value="vivienne">Vivienne</option></select><label for="speech-speed">Speed</label><select id="speech-speed" title="French playback speed"><option value="1">Normal</option><option value="0.8">Slow</option></select><button id="stop-speech" class="quiet-button" hidden>Stop Audio</button></div></div>
+        <div class="actions">
+          <button id="add-row" class="quiet-button" hidden>Add Row</button>
+          <button id="undo-remove" class="quiet-button" hidden>Undo Remove</button>
+          <button id="undo-save" class="quiet-button" title="Restore the version before your last save" disabled><span data-icon="undo"></span>Undo Save</button>
+          <button id="refresh" class="quiet-button" title="Reload this note from disk"><span data-icon="refresh"></span>Refresh</button>
+          <button id="save" class="save-button" title="Save (Ctrl+S)" disabled><span data-icon="save"></span>Save</button>
+        </div>
+      </div>
+      <div id="error" class="error" role="alert" hidden></div>
+      <div id="recovered-drafts" class="recovered-drafts" role="status" hidden><span>An earlier note draft is saved separately for review.</span><button id="download-recovered-drafts" type="button" class="quiet-button">Download recovered drafts</button></div>
+      <textarea id="editor" aria-label="Edit notes" dir="auto" spellcheck="false" wrap="soft" maxlength="350000" disabled></textarea>
+      <div id="columns-editor" class="columns-editor" role="region" aria-label="Editable French, Farsi, and English columns" hidden><div class="columns-heading"><span lang="fr">French</span><span lang="fa" dir="rtl">فارسی</span><span>English</span><span class="row-heading">Rows</span></div><div id="columns-rows"></div></div>
+      <footer class="editor-footer"><span id="cursor-position">Line 1, Column 1</span><span id="speech-status" role="status" aria-live="polite"></span><span id="connection-status"></span></footer>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" hidden><span id="toast-message"></span><button id="close-toast" class="icon-button" aria-label="Dismiss notification" data-icon="close"></button></div>
+  <dialog id="reload-dialog" aria-labelledby="reload-title" aria-describedby="reload-description">
+    <h2 id="reload-title">Reload Note</h2>
+    <p id="reload-description">This note has unsaved changes. Save them first, or discard the draft and reload the file.</p>
+    <div class="dialog-actions"><button id="reload-cancel" class="quiet-button">Cancel</button><button id="reload-discard" class="secondary-button">Discard Changes</button><button id="reload-save" class="save-button">Save and Reload</button></div>
+  </dialog>
+</body>
+</html>

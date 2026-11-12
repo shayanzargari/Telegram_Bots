@@ -1,0 +1,112 @@
+"""Fake-update replay and missing-state contracts; no real credentials."""
+import sqlite3
+from pathlib import Path
+import tempfile
+import threading
+import time
+import unittest
+from unittest.mock import patch
+import io
+import json
+from __BOT_PACKAGE__.managed import initialize,process_update,run
+
+
+class ContractTests(unittest.TestCase):
+    def test_local_effect_and_update_id_commit_together(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)/'state';initialize(root)
+            db=sqlite3.connect(root/'bot.sqlite3',isolation_level=None)
+            try:
+                update={'update_id':8,'message':{'text':'fixture'}}
+                def crash_before_commit(connection,value):
+                    connection.execute('INSERT INTO local_effects VALUES(?,?)',(8,'fixture'))
+                    raise RuntimeError('isolated crash')
+                with self.assertRaises(RuntimeError):process_update(db,update,crash_before_commit)
+                self.assertEqual(db.execute('SELECT COUNT(*) FROM local_effects').fetchone()[0],0)
+                self.assertTrue(process_update(db,update))
+                self.assertFalse(process_update(db,update))
+                self.assertEqual(db.execute('SELECT COUNT(*) FROM local_effects').fetchone()[0],1)
+            finally:db.close()
+
+    def test_missing_state_never_initializes(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            missing=Path(temporary)/'missing'
+            with self.assertRaises(ValueError):run(None,{'data_dir':str(missing)})
+            self.assertFalse(missing.exists())
+
+    def test_managed_health_and_stop_with_fake_poll_transport(self):
+        class Client:
+            bootstrap={'token':'123456'+':'+'offline_fixture_ABCDEFGHIJKLMNOPQRSTUVWXYZ'}
+            def __init__(self):self.stop=threading.Event();self.events=[]
+            def ready(self):self.events.append('ready')
+            def progress(self,poll_ok=False,**fields):
+                if poll_ok:self.events.append('poll');self.stop.set()
+            def emit(self,kind,**fields):self.events.append(kind)
+        client=Client()
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)/'state';initialize(root)
+            def fake_poll(request,timeout):
+                self.assertEqual(timeout,30)
+                return io.BytesIO(json.dumps({'ok':True,'result':[]}).encode())
+            with patch('__BOT_PACKAGE__.managed.urllib.request.urlopen',side_effect=fake_poll):run(client,{'data_dir':str(root)})
+            self.assertEqual(client.events,['ready','poll','completed'])
+
+    def test_absent_polling_capability_performs_no_network_or_state_mutation(self):
+        class Client:
+            def __init__(self):self.events=[]
+            def emit(self,kind,**fields):self.events.append((kind,fields.get('category')))
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)/'state';initialize(root);client=Client()
+            before=(root/'bot.sqlite3').read_bytes()
+            with patch('__BOT_PACKAGE__.managed.urllib.request.urlopen') as network:
+                run(client,{'data_dir':str(root),'capabilities':[]})
+                network.assert_not_called()
+            self.assertEqual(client.events,[('failure','configuration')])
+            self.assertEqual((root/'bot.sqlite3').read_bytes(),before)
+
+    def test_overall_poll_deadline_exits_without_a_second_active_request(self):
+        class Client:
+            bootstrap={'token':'123456'+':'+'offline_fixture_ABCDEFGHIJKLMNOPQRSTUVWXYZ'}
+            def __init__(self):self.stop=threading.Event();self.events=[]
+            def ready(self):self.events.append(('ready',None))
+            def emit(self,kind,**fields):self.events.append((kind,fields.get('category')))
+            def progress(self,**fields):pass
+        client=Client();release=threading.Event();calls=[]
+        def blocked_transport(request,timeout):
+            calls.append(1);release.wait(2)
+            return io.BytesIO(b'{"ok":true,"result":[]}')
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)/'state';initialize(root)
+            try:
+                started=time.monotonic()
+                with patch('__BOT_PACKAGE__.managed.POLL_DEADLINE_SECONDS',.05),patch('__BOT_PACKAGE__.managed.urllib.request.urlopen',side_effect=blocked_transport):
+                    result=run(client,{'data_dir':str(root)})
+                self.assertEqual(result,2);self.assertLess(time.monotonic()-started,.8)
+                self.assertEqual(calls,[1]);self.assertIn(('failure','unexpected'),client.events)
+            finally:release.set()
+
+    def test_cooperative_stop_is_responsive_during_a_blocked_poll(self):
+        class Client:
+            bootstrap={'token':'123456'+':'+'offline_fixture_ABCDEFGHIJKLMNOPQRSTUVWXYZ'}
+            def __init__(self):self.stop=threading.Event();self.events=[]
+            def ready(self):pass
+            def emit(self,kind,**fields):self.events.append(kind)
+            def progress(self,**fields):pass
+        client=Client();release=threading.Event();entered=threading.Event();calls=[]
+        def blocked_transport(request,timeout):
+            calls.append(1);entered.set();release.wait(2)
+            return io.BytesIO(b'{"ok":true,"result":[]}')
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)/'state';initialize(root)
+            def request_stop_after_poll_begins():
+                if entered.wait(1):client.stop.set()
+            timer=threading.Thread(target=request_stop_after_poll_begins);timer.start()
+            try:
+                started=time.monotonic()
+                with patch('__BOT_PACKAGE__.managed.urllib.request.urlopen',side_effect=blocked_transport):result=run(client,{'data_dir':str(root)})
+                self.assertEqual(result,0);self.assertLess(time.monotonic()-started,.8)
+                self.assertEqual(calls,[1]);self.assertIn('completed',client.events);self.assertNotIn('failure',client.events)
+            finally:release.set();timer.join()
+
+
+if __name__=='__main__':unittest.main()

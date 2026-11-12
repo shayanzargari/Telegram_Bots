@@ -1,0 +1,15 @@
+{
+  "name": "french-notes-checks",
+  "private": true,
+  "scripts": {
+    "test:ui": "node tests/french/editor-ui.cjs",
+    "test:columns": "node tests/french/columns-ui.cjs",
+    "test:rows": "node tests/french/rows-ui.cjs",
+    "test:undo": "node tests/french/undo-columns.cjs",
+    "test:speech": "node tests/french/speech-ui.cjs",
+    "test:ui:append-legacy": "node tests/french/ui.cjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}

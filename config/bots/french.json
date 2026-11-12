@@ -1,0 +1,73 @@
+{
+  "capabilities": [
+    "polling",
+    "maintenance"
+  ],
+  "contract_version": 1,
+  "credential_ref": "french",
+  "cwd": "data/french/reader",
+  "data_dir": "data/french/reader",
+  "display_name": "French",
+  "distribution": "french-notes",
+  "editor_python": ".venvs/french-editor/Scripts/pythonw.exe",
+  "editor_state_dir": "data/french/editor",
+  "expected_username": "Easy_French_Learning_bot",
+  "history_path": "data/french/editor/history.json",
+  "id": "french",
+  "jobs": [
+    {
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "id": "integrity",
+      "name": "Check source integrity",
+      "resources": [
+        "installation:ordinary",
+        "job:french:integrity"
+      ],
+      "safe_repeat": true,
+      "timeout_seconds": 180
+    },
+    {
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "id": "prepare_audio",
+      "name": "Prepare pronunciation audio",
+      "resources": [
+        "installation:ordinary",
+        "job:french:prepare_audio"
+      ],
+      "safe_repeat": true,
+      "timeout_seconds": 7200
+    },
+    {
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "id": "validate_audio",
+      "name": "Validate prepared audio",
+      "resources": [
+        "installation:ordinary",
+        "job:french:validate_audio"
+      ],
+      "safe_repeat": true,
+      "timeout_seconds": 180
+    }
+  ],
+  "log_dir": "logs/french",
+  "module": "french_notes.managed",
+  "notes_dir": "data/french/notes",
+  "package": "french_notes",
+  "project_dir": "bots/french",
+  "python": ".venvs/french-reader/Scripts/python.exe",
+  "required_editor_state": [
+    "history.json",
+    "editor-drafts.json",
+    "browser-state.json"
+  ],
+  "required_state": [
+    "reader.sqlite3",
+    "identity.json"
+  ],
+  "restore_validator": {
+    "job": "integrity",
+    "module": "french_notes.managed"
+  },
+  "schema_version": 1,
+  "telegram_id": 9146097206
+}

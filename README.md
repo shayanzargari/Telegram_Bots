@@ -29,3 +29,6 @@ Python 3.11 is required. Production uses installed wheels in separate final-path
 The PC and core must remain awake/running for service. Telegram retains pending updates for at most 24 hours; this installation preserves queued updates on ordinary recovery, but cannot recover updates Telegram has expired. Ambiguous remote sends cannot be guaranteed exactly once. [Telegram Bot API](https://core.telegram.org/bots/api#getupdates)
 
 Backups on this drive provide rollback, not protection against drive loss. A separate destination can be selected manually. Current-user DPAPI credentials may need re-entry after a PC/profile change. See the recovery runbook.
+
+
+Transfer format: every repository file is below 1 MB. The disposition ledger is stored in numbered parts. After cloning, run `python restore_split_files.py` to reconstruct it with SHA-256 verification. Use `python restore_split_files.py --check` for a read-only integrity check. See [transfer manifest](TRANSFER_MANIFEST.json). The local installation keeps its original ledger unchanged.

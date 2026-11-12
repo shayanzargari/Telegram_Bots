@@ -1,0 +1,547 @@
+{
+  "schema": 1,
+  "operations": [
+    {
+      "id": "home.integrity",
+      "owner": "home",
+      "purpose": "Validate existing application state and source references",
+      "kind": "production_job",
+      "entry_point": [
+        "{root}/.venvs/core/Scripts/python.exe",
+        "-m",
+        "bot_center",
+        "--root",
+        "{root}",
+        "job",
+        "--bot",
+        "home",
+        "--job",
+        "integrity"
+      ],
+      "environment": "home",
+      "inputs": [
+        "data/home",
+        "config/registry.json"
+      ],
+      "write_scope": [],
+      "resources": [
+        "installation:ordinary",
+        "job:home:integrity"
+      ],
+      "timeout_seconds": 180,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "routine",
+      "verification": [
+        "home.unit"
+      ]
+    },
+    {
+      "id": "french.integrity",
+      "owner": "french",
+      "purpose": "Validate existing application state and source references",
+      "kind": "production_job",
+      "entry_point": [
+        "{root}/.venvs/core/Scripts/python.exe",
+        "-m",
+        "bot_center",
+        "--root",
+        "{root}",
+        "job",
+        "--bot",
+        "french",
+        "--job",
+        "integrity"
+      ],
+      "environment": "french-reader",
+      "inputs": [
+        "data/french",
+        "config/registry.json"
+      ],
+      "write_scope": [],
+      "resources": [
+        "installation:ordinary",
+        "job:french:integrity"
+      ],
+      "timeout_seconds": 180,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "routine",
+      "verification": [
+        "french.unit"
+      ]
+    },
+    {
+      "id": "french.prepare_audio",
+      "owner": "french",
+      "purpose": "Resume pronunciation cache for accepted content and voice profile",
+      "kind": "production_job",
+      "entry_point": [
+        "{root}/.venvs/core/Scripts/python.exe",
+        "-m",
+        "bot_center",
+        "--root",
+        "{root}",
+        "job",
+        "--bot",
+        "french",
+        "--job",
+        "prepare_audio"
+      ],
+      "environment": "french-reader",
+      "inputs": [
+        "data/french",
+        "config/registry.json"
+      ],
+      "write_scope": [
+        "data/french/reader/speech",
+        "data/french/reader/audio-preparation.json"
+      ],
+      "resources": [
+        "installation:ordinary",
+        "job:french:prepare_audio"
+      ],
+      "timeout_seconds": 7200,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "routine",
+      "verification": [
+        "french.unit"
+      ]
+    },
+    {
+      "id": "french.validate_audio",
+      "owner": "french",
+      "purpose": "Revalidate prepared pronunciation files and completion checkpoint",
+      "kind": "production_job",
+      "entry_point": [
+        "{root}/.venvs/core/Scripts/python.exe",
+        "-m",
+        "bot_center",
+        "--root",
+        "{root}",
+        "job",
+        "--bot",
+        "french",
+        "--job",
+        "validate_audio"
+      ],
+      "environment": "french-reader",
+      "inputs": [
+        "data/french",
+        "config/registry.json"
+      ],
+      "write_scope": [],
+      "resources": [
+        "installation:ordinary",
+        "job:french:validate_audio"
+      ],
+      "timeout_seconds": 180,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "routine",
+      "verification": [
+        "french.unit"
+      ]
+    },
+    {
+      "id": "core.backup",
+      "owner": "recovery",
+      "purpose": "Capture consistent encrypted state and independently verify a recovery set",
+      "kind": "production_job",
+      "entry_point": [
+        "{root}/.venvs/core/Scripts/python.exe",
+        "-m",
+        "bot_center",
+        "--root",
+        "{root}",
+        "backup"
+      ],
+      "environment": "core",
+      "inputs": [
+        "data",
+        "config",
+        ".secrets",
+        "compatible artifact pins"
+      ],
+      "write_scope": [
+        "backups",
+        "work/recovery"
+      ],
+      "resources": [
+        "installation:exclusive",
+        "dispatch:paused",
+        "commands:queued"
+      ],
+      "timeout_seconds": 900,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "pinned-recovery",
+      "verification": [
+        "recovery.unit"
+      ]
+    },
+    {
+      "id": "recovery.verify",
+      "owner": "recovery",
+      "purpose": "Privately reconstruct and validate an existing capture",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/recovery/recovery.py",
+        "--root",
+        "{root}",
+        "verify",
+        "<set>"
+      ],
+      "environment": "core",
+      "inputs": [
+        "backups/<set>"
+      ],
+      "write_scope": [
+        "backups/<set>/verification.json",
+        "work/recovery"
+      ],
+      "resources": [
+        "recovery-verification"
+      ],
+      "timeout_seconds": 900,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "pinned-recovery",
+      "verification": [
+        "recovery.unit"
+      ]
+    },
+    {
+      "id": "recovery.restore",
+      "owner": "recovery",
+      "purpose": "Preserve current state and restore compatible state stopped with schedules disabled",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/recovery/recovery.py",
+        "--root",
+        "{root}",
+        "restore",
+        "<set>",
+        "--quiesced"
+      ],
+      "environment": "core",
+      "inputs": [
+        "backups/<set>",
+        "compatible artifact pins"
+      ],
+      "write_scope": [
+        "data",
+        "config",
+        ".secrets",
+        "backups",
+        "work/recovery"
+      ],
+      "resources": [
+        "installation:exclusive",
+        "core:closed",
+        "editor:closed"
+      ],
+      "timeout_seconds": 900,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "unsafe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "pinned-recovery",
+      "verification": [
+        "recovery.unit"
+      ]
+    },
+    {
+      "id": "inventory.refresh",
+      "owner": "installation",
+      "purpose": "Refresh exact file/fingerprint inventory without printing private contents",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/inventory.py"
+      ],
+      "environment": "core",
+      "inputs": [
+        "original application directories",
+        "inventoried AppData"
+      ],
+      "write_scope": [
+        "work/inventory"
+      ],
+      "resources": [
+        "inventory"
+      ],
+      "timeout_seconds": 180,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "migration",
+      "verification": [
+        "recovery.unit"
+      ]
+    },
+    {
+      "id": "migration.baseline",
+      "owner": "installation",
+      "purpose": "Capture fresh semantic application baseline using SQLite backup API",
+      "kind": "one_time_migration",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/recovery/baseline.py"
+      ],
+      "environment": "core",
+      "inputs": [
+        "original state"
+      ],
+      "write_scope": [
+        "work/migration"
+      ],
+      "resources": [
+        "installation:exclusive"
+      ],
+      "timeout_seconds": 180,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "migration",
+      "verification": [
+        "recovery.unit"
+      ]
+    },
+    {
+      "id": "verification.coordinator",
+      "owner": "verification",
+      "purpose": "Select deduplicated checks in declared environments and retain truthful results",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/testing/run_tests.py",
+        "--profile",
+        "<profile>"
+      ],
+      "environment": "core",
+      "inputs": [
+        "config/suites.json",
+        "source/installed inputs"
+      ],
+      "write_scope": [
+        "work/tests"
+      ],
+      "resources": [
+        "declared per suite"
+      ],
+      "timeout_seconds": 7200,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "routine",
+      "verification": [
+        "coordinator.unit"
+      ]
+    },
+    {
+      "id": "cleanup.retention",
+      "owner": "verification",
+      "purpose": "Prune redundant routine bulk while preserving outcomes/provenance/pins",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/cleanup/retention.py",
+        "--apply"
+      ],
+      "environment": "core",
+      "inputs": [
+        "work/tests/index.json",
+        "config/retention.json"
+      ],
+      "write_scope": [
+        "work/tests"
+      ],
+      "resources": [
+        "test-evidence-index"
+      ],
+      "timeout_seconds": 120,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "safe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "routine",
+      "verification": [
+        "coordinator.unit"
+      ]
+    },
+    {
+      "id": "cleanup.ledger",
+      "owner": "installation",
+      "purpose": "Apply one small exact ledger-backed obsolete-material batch",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/cleanup/cleanup.py",
+        "--ledger",
+        "<ledger>",
+        "--apply"
+      ],
+      "environment": "core",
+      "inputs": [
+        "docs/cleanup-ledger.json",
+        "verification and recovery evidence"
+      ],
+      "write_scope": [
+        "exact eligible ledger paths"
+      ],
+      "resources": [
+        "installation:exclusive"
+      ],
+      "timeout_seconds": 180,
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "repetition_safety": "unsafe",
+      "output": "work/<operation>/<run-id>",
+      "retention": "routine",
+      "verification": [
+        "coordinator.unit"
+      ]
+    },
+    {
+      "id": "home.simulator",
+      "owner": "home",
+      "purpose": "Interactive synthetic Telegram simulator without production credentials",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{root}/.venvs/home/Scripts/python.exe",
+        "-m",
+        "home_bot.simulator",
+        "--fresh",
+        "--port",
+        "8877"
+      ],
+      "environment": "home",
+      "inputs": [
+        "installed home_bot"
+      ],
+      "write_scope": [
+        "work/simulator/home"
+      ],
+      "resources": [
+        "simulator:port8877"
+      ],
+      "timeout_seconds": null,
+      "cancellation": "Close owned simulator normally",
+      "repetition_safety": "safe",
+      "output": "work/simulator/home",
+      "retention": "routine",
+      "verification": [
+        "home.unit",
+        "home.ui"
+      ]
+    },
+    {
+      "id": "release.local",
+      "owner": "installation",
+      "purpose": "Verify and prepare local versioned wheels/dependency locks without remote publication",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/testing/prepare_release.py",
+        "--output",
+        "{root}/work/releases/<run-id>"
+      ],
+      "environment": "core",
+      "inputs": [
+        "work/build/wheelhouse",
+        "tools/environments/*.lock"
+      ],
+      "write_scope": [
+        "work/releases"
+      ],
+      "resources": [
+        "release-build"
+      ],
+      "timeout_seconds": 300,
+      "cancellation": "Finite atomic publication",
+      "repetition_safety": "safe",
+      "output": "work/releases/<run-id>",
+      "retention": "routine",
+      "verification": [
+        "archive hashes",
+        "credential scan"
+      ]
+    },
+    {
+      "id": "onboarding.generated",
+      "owner": "registry",
+      "purpose": "Build, register and verify a fresh independent installed template bot using isolated state and fake transport",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/testing/run_tests.py",
+        "--suite",
+        "onboarding.generated",
+        "--fresh"
+      ],
+      "environment": "core",
+      "inputs": [
+        "core/src/bot_center/registration.py",
+        "templates",
+        "tests/integration/test_generated_bot.py",
+        "shared",
+        "tools/environments/build.requirements.txt",
+        "tools/testing/run_tests.py"
+      ],
+      "write_scope": [
+        "work/tests"
+      ],
+      "resources": [
+        "generated-bot-build"
+      ],
+      "timeout_seconds": 360,
+      "cancellation": "Terminate isolated fixture-owned processes only",
+      "repetition_safety": "safe",
+      "output": "work/tests/<run-id>/onboarding.generated",
+      "retention": "routine",
+      "verification": [
+        "onboarding.generated"
+      ]
+    },
+    {
+      "id": "live.polling",
+      "owner": "integration",
+      "purpose": "Observe both real completed polling loops concurrently through authenticated IPC; sends no messages and does not establish phone reply acceptance",
+      "kind": "developer_tool",
+      "entry_point": [
+        "{python}",
+        "{root}/tools/testing/run_tests.py",
+        "--profile",
+        "live",
+        "--fresh"
+      ],
+      "environment": "core",
+      "inputs": [
+        "tools/testing/live_probe.py",
+        "core/src/bot_center/supervisor.py",
+        "config/bots"
+      ],
+      "write_scope": [
+        "work/tests"
+      ],
+      "resources": [
+        "live-telegram-observation"
+      ],
+      "timeout_seconds": 90,
+      "cancellation": "Stop read-only observer; leave core and bots running",
+      "repetition_safety": "safe",
+      "output": "work/tests/<run-id>/live.polling",
+      "retention": "pinned-acceptance",
+      "verification": [
+        "live.polling"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "capabilities": [
+    "polling",
+    "maintenance"
+  ],
+  "contract_version": 1,
+  "credential_ref": "home",
+  "cwd": "data/home",
+  "data_dir": "data/home",
+  "display_name": "Home",
+  "distribution": "home-bot",
+  "expected_username": "shayan_dorsa_home_bot",
+  "id": "home",
+  "jobs": [
+    {
+      "cancellation": "Cooperative stop; drain owned workers before releasing reservation",
+      "id": "integrity",
+      "name": "Check state integrity",
+      "resources": [
+        "installation:ordinary",
+        "job:home:integrity"
+      ],
+      "safe_repeat": true,
+      "timeout_seconds": 180
+    }
+  ],
+  "log_dir": "logs/home",
+  "module": "home_bot.managed",
+  "package": "home_bot",
+  "project_dir": "bots/home",
+  "python": ".venvs/home/Scripts/python.exe",
+  "required_state": [
+    "tasks.sqlite3"
+  ],
+  "restore_validator": {
+    "job": "integrity",
+    "module": "home_bot.managed"
+  },
+  "schema_version": 1,
+  "telegram_id": 9104315743
+}

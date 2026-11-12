@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "routine_bundles_per_suite_environment": 3,
+  "soft_routine_bytes": 536870912,
+  "review_after_days": 30,
+  "keep_latest_successful_acceptance": true,
+  "preserve_unresolved_failures": true,
+  "pins_override_limits": true,
+  "permanent_compact_outcomes": true
+}

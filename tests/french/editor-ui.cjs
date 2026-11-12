@@ -1,0 +1,57 @@
+const outputRoot=process.env.BOT_CENTER_TEST_OUTPUT;if(outputRoot)require('node:fs').mkdirSync(outputRoot,{recursive:true});
+const {chromium}=require('playwright');
+const fs=require('node:fs');const path=require('node:path');const {spawn}=require('node:child_process');const assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..','..');const fixtures=path.join(__dirname,'support/private/editor-notes');const checks=path.join(process.env.FRENCH_NOTES_CHECKS||process.env.BOT_CENTER_TEST_OUTPUT||path.join(root,'work/tests/manual/french'),'editor');fs.mkdirSync(checks,{recursive:true});const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const decode=buffer=>buffer.toString('utf8').replace(/^\uFEFF/,'').replace(/\r\n|\r/g,'\n');
+(async()=>{
+ const testRoot=fs.mkdtempSync(path.join(checks,'ui-run-')),notes=path.join(testRoot,'notes'),state=path.join(testRoot,'state');fs.mkdirSync(notes);
+ for(const name of fs.readdirSync(fixtures))fs.copyFileSync(path.join(fixtures,name),path.join(notes,name));
+ fs.renameSync(path.join(notes,'Overall Examples.txt'),path.join(notes,'Practice.txt'));
+ let child,browser,page;const report={started:new Date().toISOString(),tests:[],errors:[],folder:testRoot};const pass=name=>{report.tests.push(name);console.log('PASS',name);};
+ async function start(){let output='',errors='';child=spawn(process.env.BOT_CENTER_FRENCH_PYTHON||path.join(root,'.venvs/french-editor/Scripts/python.exe'),['-m','french_notes.app','--data-dir',notes,'--state-dir',state,'--no-browser','--idle-seconds','0'],{cwd:root,windowsHide:true,stdio:['ignore','pipe','pipe']});child.stdout.on('data',c=>output+=c);child.stderr.on('data',c=>errors+=c);for(let i=0;i<500&&!output.includes('http://')&&child.exitCode===null;i++)await sleep(80);const url=output.match(/http:\/\/127\.0\.0\.1:\d+/)?.[0];assert.ok(url,errors||`Server did not start: ${output}`);return url;}
+ async function stop(){if(!child||child.exitCode!==null||child.signalCode!==null)return;const current=child;await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Fixture editor did not exit before restart')),10000);current.once('exit',()=>{clearTimeout(timer);resolve();});current.kill();});}
+ async function tab(title){await page.getByRole('button',{name:title,exact:true}).click();await page.waitForFunction(title=>document.getElementById('page-title').textContent===title&&!document.getElementById('editor').disabled,title);}
+ async function saved(){await page.waitForFunction(()=>document.getElementById('save-status').textContent==='Saved'&&!document.getElementById('editor').disabled);}
+ async function undo(){await page.locator('#undo-save').click();await saved();}
+ try{
+  let url=await start();browser=await chromium.launch({channel:'msedge',headless:true});page=await browser.newPage({viewport:{width:1440,height:960},deviceScaleFactor:1});page.on('pageerror',e=>report.errors.push(e.message));
+  await page.route('**/api/speech',route=>route.fulfill({status:200,contentType:'audio/mpeg',body:fs.readFileSync(path.join(__dirname,'fixtures/denise.mp3'))}));
+  await page.goto(url+'/?note=Practice.txt');await saved();await page.getByRole('button',{name:'Text',exact:true}).click();assert.equal(await page.locator('.category').count(),await page.evaluate(async()=>(await api('categories')).categories.length));assert.equal(await page.locator('textarea:visible').count(),1);assert.equal(await page.locator('#editor').isEditable(),true);
+  const visible=await page.locator('body').innerText();for(const removed of ['A little more French','Your everyday notebook','Ready when you are','Un peu, chaque jour.','Useful sentences for everyday life.','EVERYDAY FRENCH','Add to Overall Examples'])assert.ok(!visible.includes(removed),removed);
+  assert.equal(await page.locator('h1').count(),1);assert.ok(await page.evaluate(()=>document.documentElement.scrollHeight<=innerHeight));
+  await page.screenshot({path:path.join(checks,'editor-desktop.png'),fullPage:true});pass('Text view has one directly editable pane and the complete fixture catalogue');
+  const source=path.join(notes,'Practice.txt'),original=fs.readFileSync(source),originalText=decode(original);
+  const edited=originalText.replace('Mon oreille me gratte.','Une phrase corrigée. فارسی')+'\nUne nouvelle note.\n';
+  await page.locator('#editor').fill(edited);assert.ok(fs.readFileSync(source).equals(original));await page.locator('#editor').press('Control+s');await saved();
+  assert.equal(decode(fs.readFileSync(source)),edited);await undo();assert.ok(fs.readFileSync(source).equals(original));pass('Direct replacement and Ctrl+S save French/Persian edits; Undo Save restores exact original bytes');
+  await page.locator('#editor').press('Control+End');await page.locator('#editor').pressSequentially('X');await page.locator('#editor').press('Control+z');
+  assert.equal(await page.locator('#editor').inputValue(),originalText);pass('Native Ctrl+Z works while typing');
+  const combined=path.join(notes,'wrods, verbs.txt'),combinedBefore=fs.readFileSync(combined);
+  await tab('Words');const words=await page.locator('#editor').inputValue();assert.ok(words.includes('La fourmi'));assert.ok(!words.includes('Cultiver.'));assert.ok(!words.includes('Haut ='));
+  await page.locator('#editor').fill(words+'\nUn mot ajouté. فارسی\n');await tab('Verbs');const verbs=await page.locator('#editor').inputValue();assert.ok(verbs.includes('Cultiver.'));assert.ok(!verbs.includes('Haut ='));
+  await tab('Additional Notes');const additional=await page.locator('#editor').inputValue();assert.ok(additional.includes('Haut ='));assert.ok(additional.includes('Bas ='));assert.ok(additional.includes('Savoir'));
+  await page.screenshot({path:path.join(checks,'additional-notes.png'),fullPage:true});
+  assert.ok(fs.readFileSync(combined).equals(combinedBefore));pass('Words, Verbs, and all separator-based detailed notes are separated without changing the original file');
+  const selectedBeforeRestart=await page.locator('#page-title').textContent();assert.equal(selectedBeforeRestart,'Additional Notes');
+  await page.waitForFunction(async()=>{const saved=await api('browser-state');return Object.entries(saved.values||{}).some(([key,value])=>key.endsWith('.selected')&&value==='@additional');});
+  const previousUrl=url;await stop();url=await start();assert.notEqual(url,previousUrl,'Draft recovery must be checked on a different localhost port');await page.goto(url);await page.waitForFunction(title=>!document.getElementById('editor').disabled&&document.getElementById('page-title').textContent===title,selectedBeforeRestart);await page.getByRole('button',{name:'Text',exact:true}).click();await tab('Words');assert.equal(await page.locator('#save-status').textContent(),'Unsaved changes');assert.equal(await page.locator('#editor').inputValue(),words+'\nUn mot ajouté. فارسی\n');
+  pass('Selected tab and unsaved section drafts survive a server restart and a different localhost port');
+  await tab('Verbs');await page.locator('#editor').fill(verbs+'\nMarcher ensemble.\n');await page.locator('#save').click();await saved();
+  await tab('Words');await page.locator('#save').click();await saved();assert.ok(decode(fs.readFileSync(combined)).includes('Marcher ensemble.'));assert.ok(decode(fs.readFileSync(combined)).includes('Un mot ajouté.'));
+  await undo();assert.ok(decode(fs.readFileSync(combined)).includes('Marcher ensemble.'));assert.ok(!decode(fs.readFileSync(combined)).includes('Un mot ajouté.'));
+  await tab('Verbs');await undo();assert.ok(fs.readFileSync(combined).equals(combinedBefore));pass('Saving and undoing one section preserves edits in the other sections');
+  await tab('Additional Notes');await page.locator('#editor').fill(additional.replace('Haut =','Haut (modifié) ='));await page.locator('#save').click();await saved();assert.ok(decode(fs.readFileSync(combined)).includes('Haut (modifié) ='));await undo();assert.ok(fs.readFileSync(combined).equals(combinedBefore));
+  pass('Additional Notes can be edited directly without disturbing Words or Verbs');
+  await page.locator('#search').fill('Haut');const detailResult=page.locator('.search-result').filter({has:page.locator('strong',{hasText:/^Additional Notes$/})}).first();await detailResult.click();await page.waitForFunction(()=>document.getElementById('page-title').textContent==='Additional Notes'&&!document.getElementById('editor').disabled);
+  assert.ok(await page.locator('#editor').evaluate(el=>el.value.slice(el.selectionStart,el.selectionEnd).toLowerCase()==='haut'));pass('Search opens the correct detailed-note tab and selects matching text');
+  await tab('Practice');await page.locator('#editor').fill(originalText+'\nMy unsaved change');await page.locator('#refresh').click();await page.waitForSelector('dialog[open]');await page.locator('#reload-cancel').click();assert.ok((await page.locator('#editor').inputValue()).includes('My unsaved change'));
+  await page.locator('#refresh').click();await page.waitForSelector('dialog[open]');await page.locator('#reload-discard').click();await saved();assert.equal(await page.locator('#editor').inputValue(),originalText);assert.ok(fs.readFileSync(source).equals(original));pass('Refresh offers an explicit choice before discarding unsaved edits');
+  await page.locator('#editor').fill(originalText+'\nMy edit');fs.appendFileSync(source,'\r\nExternal change\r\n');const external=fs.readFileSync(source);await page.locator('#save').click();await page.waitForSelector('#error:not([hidden])');assert.ok(fs.readFileSync(source).equals(external));assert.ok((await page.locator('#editor').inputValue()).includes('My edit'));
+  await page.locator('#refresh').click();await page.waitForSelector('dialog[open]');await page.locator('#reload-discard').click();await saved();assert.equal(await page.locator('#editor').inputValue(),decode(external));pass('External file changes block stale saves and keep the unsaved draft');
+  await page.locator('#editor').fill('');await page.locator('#save').click();await saved();assert.equal(decode(fs.readFileSync(source)),'');await undo();assert.ok(fs.readFileSync(source).equals(external));pass('Deleting all text is an explicit save and can be undone exactly');
+  const status=await page.evaluate(async()=>{const r=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});return r.status;});assert.equal(status,403);pass('Save API requires the app token');
+  for(const viewport of [{width:1100,height:800},{width:850,height:900},{width:390,height:844},{width:375,height:812},{width:812,height:375}]){await page.setViewportSize(viewport);await sleep(100);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Overflow at '+viewport.width);assert.ok(await page.locator('#editor').isEditable());await page.screenshot({path:path.join(checks,`editor-${viewport.width}.png`),fullPage:true});}
+  pass('Editor remains aligned and usable at desktop and narrow widths');assert.deepEqual(report.errors,[]);pass('No browser JavaScript errors');report.status='passed';
+ }catch(e){report.status='failed';report.failure=e.stack;if(page)await page.screenshot({path:path.join(checks,'failure.png'),fullPage:true}).catch(()=>{});throw e;}
+ finally{fs.writeFileSync(path.join(checks,'ui-results.json'),JSON.stringify(report,null,2));if(browser)await browser.close();await stop();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

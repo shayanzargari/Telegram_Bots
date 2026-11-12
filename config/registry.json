@@ -1,0 +1,11 @@
+{
+  "bots": [
+    {
+      "manifest": "config/bots/home.json"
+    },
+    {
+      "manifest": "config/bots/french.json"
+    }
+  ],
+  "schema": 1
+}

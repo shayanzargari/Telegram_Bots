@@ -1,0 +1,829 @@
+{
+  "schema": 1,
+  "suites": [
+    {
+      "id": "core.unit",
+      "owner": "core",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/core",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "core",
+        "tests/core",
+        "shared"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "smoke",
+        "integration"
+      ],
+      "resources": [],
+      "category": "unit",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "shared.unit",
+      "owner": "shared",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/shared",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "shared",
+        "tests/shared"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "smoke",
+        "shared-compatibility"
+      ],
+      "resources": [],
+      "category": "unit",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "recovery.unit",
+      "owner": "recovery",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/recovery",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "core/src/bot_center/recovery.py",
+        "tools/recovery",
+        "tools/cleanup",
+        "tests/recovery"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "smoke",
+        "integration",
+        "windows"
+      ],
+      "resources": [],
+      "category": "unit",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "scheduler.unit",
+      "owner": "scheduler",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/scheduler",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "core/src/bot_center/scheduler.py",
+        "tests/scheduler"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "smoke",
+        "integration"
+      ],
+      "resources": [],
+      "category": "unit",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "onboarding.unit",
+      "owner": "registry",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/onboarding",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "core/src/bot_center/registration.py",
+        "templates",
+        "tools/bots",
+        "tests/onboarding"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "integration"
+      ],
+      "resources": [],
+      "category": "unit",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "home.unit",
+      "owner": "home",
+      "environment": "home",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/home",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "bots/home",
+        "tests/home",
+        "shared"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "shared-compatibility"
+      ],
+      "resources": [],
+      "category": "unit",
+      "platform": "any",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "french.unit",
+      "owner": "french",
+      "environment": "french-reader",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/french",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "bots/french",
+        "tests/french",
+        "shared"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "shared-compatibility"
+      ],
+      "resources": [],
+      "category": "unit",
+      "platform": "any",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "docs.context",
+      "owner": "documentation",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "{root}/tools/testing/check_context.py"
+      ],
+      "inputs": [
+        "docs",
+        "AGENTS.md",
+        ".agents/skills",
+        "core/AGENTS.md",
+        "shared/AGENTS.md",
+        "bots/home/AGENTS.md",
+        "bots/french/AGENTS.md",
+        "launchers"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "docs-context"
+      ],
+      "resources": [],
+      "category": "context",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "coordinator.unit",
+      "owner": "verification",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/support",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "tools/testing",
+        "config/suites.json",
+        "config/retention.json",
+        "tests/support"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "smoke"
+      ],
+      "resources": [],
+      "category": "unit",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "core.installed",
+      "owner": "packaging",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "{root}/tools/testing/installed_probe.py",
+        "--component",
+        "core"
+      ],
+      "inputs": [
+        "shared",
+        "core",
+        "tools/testing/installed_probe.py"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "smoke",
+        "shared-compatibility"
+      ],
+      "resources": [],
+      "category": "installed",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "shared.installed",
+      "owner": "packaging",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "{root}/tools/testing/installed_probe.py",
+        "--component",
+        "shared"
+      ],
+      "inputs": [
+        "shared",
+        "bots/shared",
+        "tools/testing/installed_probe.py"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "smoke",
+        "shared-compatibility"
+      ],
+      "resources": [],
+      "category": "installed",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "home.installed",
+      "owner": "packaging",
+      "environment": "home",
+      "command": [
+        "{python}",
+        "{root}/tools/testing/installed_probe.py",
+        "--component",
+        "home"
+      ],
+      "inputs": [
+        "shared",
+        "bots/home",
+        "tools/testing/installed_probe.py"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "smoke",
+        "shared-compatibility"
+      ],
+      "resources": [],
+      "category": "installed",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "french.installed",
+      "owner": "packaging",
+      "environment": "french-reader",
+      "command": [
+        "{python}",
+        "{root}/tools/testing/installed_probe.py",
+        "--component",
+        "french"
+      ],
+      "inputs": [
+        "shared",
+        "bots/french",
+        "tools/testing/installed_probe.py"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "smoke",
+        "shared-compatibility"
+      ],
+      "resources": [],
+      "category": "installed",
+      "platform": "any",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "french.ui.editor-ui",
+      "owner": "french-editor",
+      "environment": "french-editor",
+      "command": [
+        "{node}",
+        "{root}/tests/french/editor-ui.cjs"
+      ],
+      "inputs": [
+        "bots/french",
+        "tests/french/editor-ui.cjs",
+        "tests/french/fixtures"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "ui"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "french.ui.columns-ui",
+      "owner": "french-editor",
+      "environment": "french-editor",
+      "command": [
+        "{node}",
+        "{root}/tests/french/columns-ui.cjs"
+      ],
+      "inputs": [
+        "bots/french",
+        "tests/french/columns-ui.cjs",
+        "tests/french/fixtures"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "ui"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "french.ui.rows-ui",
+      "owner": "french-editor",
+      "environment": "french-editor",
+      "command": [
+        "{node}",
+        "{root}/tests/french/rows-ui.cjs"
+      ],
+      "inputs": [
+        "bots/french",
+        "tests/french/rows-ui.cjs",
+        "tests/french/fixtures"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "ui"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "french.ui.undo-columns",
+      "owner": "french-editor",
+      "environment": "french-editor",
+      "command": [
+        "{node}",
+        "{root}/tests/french/undo-columns.cjs"
+      ],
+      "inputs": [
+        "bots/french",
+        "tests/french/undo-columns.cjs",
+        "tests/french/fixtures"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "ui"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "french.ui.speech-ui",
+      "owner": "french-editor",
+      "environment": "french-editor",
+      "command": [
+        "{node}",
+        "{root}/tests/french/speech-ui.cjs"
+      ],
+      "inputs": [
+        "bots/french",
+        "tests/french/speech-ui.cjs",
+        "tests/french/fixtures"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "ui"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "french.ui.expressions-ui",
+      "owner": "french-editor",
+      "environment": "french-editor",
+      "command": [
+        "{node}",
+        "{root}/tests/french/expressions-ui.cjs"
+      ],
+      "inputs": [
+        "bots/french",
+        "tests/french/expressions-ui.cjs",
+        "tests/french/fixtures"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "ui"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "french.ui.notebooks-ui",
+      "owner": "french-editor",
+      "environment": "french-editor",
+      "command": [
+        "{node}",
+        "{root}/tests/french/notebooks-ui.cjs"
+      ],
+      "inputs": [
+        "bots/french",
+        "tests/french/notebooks-ui.cjs",
+        "tests/french/fixtures"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "ui"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "french.ui.ui",
+      "owner": "french-editor",
+      "environment": "french-editor",
+      "command": [
+        "{node}",
+        "{root}/tests/french/ui.cjs"
+      ],
+      "inputs": [
+        "bots/french",
+        "tests/french/ui.cjs",
+        "tests/french/fixtures"
+      ],
+      "profiles": [
+        "acceptance",
+        "affected",
+        "ui"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "windows.runtime",
+      "owner": "runtime",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/windows",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "shared",
+        "core",
+        "tests/windows"
+      ],
+      "profiles": [
+        "windows",
+        "integration",
+        "acceptance",
+        "shared-compatibility",
+        "affected"
+      ],
+      "resources": [
+        "native-process-fixtures"
+      ],
+      "category": "windows",
+      "platform": "windows",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "core.ui",
+      "owner": "core-ui",
+      "environment": "browser",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/ui",
+        "-p",
+        "test_*.py"
+      ],
+      "inputs": [
+        "core/src/bot_center/ui",
+        "tests/ui"
+      ],
+      "profiles": [
+        "ui",
+        "acceptance",
+        "affected"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 300
+    },
+    {
+      "id": "home.ui",
+      "owner": "home-simulator",
+      "environment": "browser",
+      "command": [
+        "{python}",
+        "{root}/tests/home/audit_browser_ui.py",
+        "--source",
+        "{root}/.venvs/home/Lib/site-packages/home_bot/simulator.html",
+        "--output",
+        "{suite_dir}/browser-audit.json"
+      ],
+      "inputs": [
+        "bots/home",
+        "tests/home/audit_browser_ui.py"
+      ],
+      "profiles": [
+        "ui",
+        "acceptance",
+        "affected"
+      ],
+      "resources": [
+        "browser-desktop"
+      ],
+      "category": "ui",
+      "platform": "windows",
+      "timeout_seconds": 240
+    },
+    {
+      "id": "home.performance",
+      "owner": "home",
+      "environment": "home",
+      "command": [
+        "{python}",
+        "{root}/tests/home/audit_performance.py",
+        "--source",
+        "{root}/.venvs/home/Lib/site-packages/home_bot",
+        "--output",
+        "{suite_dir}/performance.json",
+        "--delays",
+        "0,0.1"
+      ],
+      "inputs": [
+        "bots/home",
+        "tests/home/audit_performance.py",
+        "tests/home/test_local_telegram.py"
+      ],
+      "profiles": [
+        "performance",
+        "affected"
+      ],
+      "resources": [
+        "performance"
+      ],
+      "category": "performance",
+      "platform": "any",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "home.simulations",
+      "owner": "home",
+      "environment": "home",
+      "command": [
+        "{python}",
+        "{root}/tests/home/audit_simulations.py",
+        "--actions",
+        "100",
+        "--rapid-actions",
+        "20",
+        "--restarts",
+        "1",
+        "--output",
+        "{suite_dir}/simulations.json"
+      ],
+      "inputs": [
+        "bots/home",
+        "tests/home/audit_simulations.py",
+        "tests/home/test_local_telegram.py"
+      ],
+      "profiles": [
+        "performance",
+        "acceptance",
+        "affected"
+      ],
+      "resources": [
+        "home-simulation"
+      ],
+      "category": "integration",
+      "platform": "any",
+      "timeout_seconds": 600
+    },
+    {
+      "id": "french.editor-lifetime",
+      "owner": "french-editor",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/integration",
+        "-p",
+        "test_editor_lifetime.py"
+      ],
+      "inputs": [
+        "bots/french",
+        "core",
+        "shared",
+        "tests/integration/test_editor_lifetime.py",
+        "tests/french/fixtures",
+        "tests/french/support"
+      ],
+      "profiles": [
+        "integration",
+        "windows",
+        "ui",
+        "acceptance",
+        "shared-compatibility",
+        "affected"
+      ],
+      "resources": [
+        "browser-desktop",
+        "native-process-fixtures"
+      ],
+      "category": "integration",
+      "platform": "windows",
+      "timeout_seconds": 360
+    },
+    {
+      "id": "onboarding.generated",
+      "owner": "registry",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "{root}/tests/integration",
+        "-p",
+        "test_generated_bot.py"
+      ],
+      "inputs": [
+        "core/src/bot_center/registration.py",
+        "templates",
+        "tests/integration/test_generated_bot.py",
+        "shared",
+        "tools/environments/build.requirements.txt",
+        "tools/testing/run_tests.py"
+      ],
+      "profiles": [
+        "acceptance",
+        "integration",
+        "shared-compatibility",
+        "affected"
+      ],
+      "resources": [
+        "generated-bot-build"
+      ],
+      "category": "integration",
+      "platform": "windows",
+      "timeout_seconds": 360
+    },
+    {
+      "id": "live.polling",
+      "owner": "integration",
+      "environment": "core",
+      "command": [
+        "{python}",
+        "{root}/tools/testing/live_probe.py",
+        "--root",
+        "{root}",
+        "--output",
+        "{suite_dir}"
+      ],
+      "inputs": [
+        "tools/testing/live_probe.py",
+        "core/src/bot_center/supervisor.py",
+        "config/bots"
+      ],
+      "profiles": [
+        "live"
+      ],
+      "resources": [
+        "live-telegram-observation"
+      ],
+      "category": "live",
+      "platform": "windows",
+      "timeout_seconds": 90
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bot-center-runtime"
+version = "1.0.0"
+requires-python = ">=3.11,<3.12"
+description = "Shared local bot lifecycle contracts and Windows primitives"
+dependencies = []
+
+[project.scripts]
+bot-center-run = "bot_center_runtime.runner:main"
+bot-center-credentials = "bot_center_runtime.credentials:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

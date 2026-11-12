@@ -1,0 +1,10 @@
+# French Notes conventions
+
+- The application lives here; the user's live notes are in `D:/french`. Snapshot current note bytes, drafts, and history before migrations. Use guarded revision checks and the normal backup/save path. Preserve concurrent manual edits.
+- Classify future supplied sentences into the existing Indicatif or Conditionnel sections. Use the main clause; for multiple independent sentences in one entry, use the first. Retain the whole example and record other tenses in its optional fourth source field. Do not populate empty sections with invented examples.
+- Indicatif sections are defined in `tense_notes.py`. Sections persist as `##` headings. Rows contain French, Farsi, English, and optionally secondary-tense labels separated by `    |    `.
+- Avoir contains lexical expressions with avoir and their examples. Avoir used only as a compound-tense auxiliary does not make an entry an Avoir expression. Preserve grammatical comparison/conjugation tables in their teaching context.
+- Verbs (`@verbs`) uses **infinitif présent** for every new or corrected verb entry, including pronominal verbs and their prepositions/complements. Move conjugated sentence examples to the appropriate sentence table; preserve their translations. Do not guess a lemma from an ambiguous form.
+- Expressions retains its six columns: expression, Farsi meaning, English meaning, French example, Farsi translation, English translation. Avoir and Faire use three columns; when moving a six-column expression to Avoir, preserve its definition and example as separate three-column rows.
+- Fill missing Farsi and English translations for sentence/vocabulary entries. Correct clear errors; report ambiguous wording rather than changing its meaning. Keep first occurrences and distinct explanations when merging duplicates. Different examples of one expression are distinct entries.
+- Store backups and migration/audit reports under `checks`, outside the active notes folder. Keep archived source files and historical save backups. Test migrations and browser edits with isolated note copies and local speech fixtures.

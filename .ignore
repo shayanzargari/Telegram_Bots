@@ -1,0 +1,17 @@
+.git/
+.secrets/
+.venvs/
+data/
+logs/
+backups/
+archive/
+work/
+node_modules/
+.publish/
+.local-telegram/
+checks/
+.venv/
+.venv-bot/
+__pycache__/
+/French Notes/
+/Our_Home_Telegram_Bot/
