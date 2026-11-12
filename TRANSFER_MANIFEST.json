@@ -631,8 +631,8 @@
     },
     {
       "path": "docs/PROJECT_STATUS.md",
-      "bytes": 12499,
-      "sha256": "ef05bad13976b1d3cb504e7745a9cadf5a909c850fa63b45ace5c347a6b34ba1"
+      "bytes": 14871,
+      "sha256": "c43b2a95df579013b8e14a55081a7b3356e198c0f7cad2321a1eaaca9ab69949"
     },
     {
       "path": "docs/RECOVERY.md",
@@ -1339,5 +1339,9 @@
       "bytes": 18029,
       "sha256": "c709d9a5627e8369c5a2439a4b49d5368c066d74ab99f287c90b75236846b94a"
     }
+  ],
+  "snapshot_description": "Canonical tracked working-tree source; current uncommitted checkpoint included; README has transfer instructions; private and generated state excluded.",
+  "source_working_tree_changes": [
+    "docs/PROJECT_STATUS.md"
   ]
 }
